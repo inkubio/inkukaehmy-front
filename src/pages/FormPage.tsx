@@ -1,10 +1,9 @@
 import * as React from 'react';
-import ContentContainer from '../components/ContentContainer';
+import { ContentContainer } from '../components/ContentContainer';
+import { Title } from '../components/Title';
 
-const FormPage = ({ props }: any) => (
+export const FormPage = ({ props }: any) => (
   <ContentContainer>
-    <h1>Uusi kähmy</h1>
+    <Title>Uusi kähmy</Title>
   </ContentContainer>
 );
-
-export default FormPage;

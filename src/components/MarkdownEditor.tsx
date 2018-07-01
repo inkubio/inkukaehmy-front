@@ -7,7 +7,7 @@ interface AppState {
   mdeState: ReactMdeTypes.MdeState;
 }
 
-class MarkdownEditor extends React.Component<{}, AppState> {
+export class MarkdownEditor extends React.Component<{}, AppState> {
   converter: Showdown.Converter;
 
   constructor(props: any) {
@@ -39,5 +39,3 @@ class MarkdownEditor extends React.Component<{}, AppState> {
     );
   }
 }
-
-export default MarkdownEditor;

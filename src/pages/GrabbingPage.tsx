@@ -1,10 +1,9 @@
 import * as React from 'react';
-import ContentContainer from '../components/ContentContainer';
+import { ContentContainer } from '../components/ContentContainer';
+import { Title } from '../components/Title';
 
-const GrabbingPage = ({ props }: any) => (
+export const GrabbingPage = ({ props }: any) => (
   <ContentContainer>
-    <h1>Kähmy:</h1>
+    <Title>Yksi kähmy</Title>
   </ContentContainer>
 );
-
-export default GrabbingPage;

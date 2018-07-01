@@ -1,10 +1,12 @@
 import * as React from 'react';
-import ContentContainer from '../components/ContentContainer';
+import { ContentContainer } from '../components/ContentContainer';
+import { ButtonPillLink } from '../components/ButtonPill';
+import { Title } from '../components/Title';
 
-const MainPage = ({ props }: any) => (
+export const MainPage = ({ props }: any) => (
   <ContentContainer>
-    <h1>Kähmyä pls</h1>
+    <Title>Kähmyä pls</Title>
+    <ButtonPillLink text="New grab" to="/form" />
+    <ButtonPillLink text="View grabbings" to="/grabbing" />
   </ContentContainer>
 );
-
-export default MainPage;

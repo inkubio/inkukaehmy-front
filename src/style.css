@@ -21,6 +21,22 @@
   padding: 2rem;
 }
 
+.text-title {
+  font-size: 2rem;
+  padding-bottom: 1rem;
+}
+
+.text-basic {
+  font-size: 1rem;
+  padding-bottom: 1rem;
+}
+
+.text-author {
+  font-size: 0.8rem;
+  font-style: italic;
+  padding-bottom: 0.5rem;
+}
+
 .button-pill {
   color: var(--GREEN);
   font-size: 1.2rem;

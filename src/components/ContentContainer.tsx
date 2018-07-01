@@ -4,8 +4,6 @@ type ContentContainerProps = {
   children: any;
 };
 
-const ContentContainer = (props: ContentContainerProps) => (
+export const ContentContainer = (props: ContentContainerProps) => (
   <div className="content">{props.children}</div>
 );
-
-export default ContentContainer;
