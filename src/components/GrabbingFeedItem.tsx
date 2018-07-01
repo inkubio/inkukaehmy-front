@@ -5,14 +5,14 @@ import { TextContent } from './TextContent';
 import { Author } from './Author';
 import { Timestamp } from './Timestamp';
 
-type FeedGrabbingProps = {
+type GrabbingFeedItem = {
   title: string;
   text: string;
   author: string;
   timestamp: string;
 };
 
-export const FeedGrabbing = (props: FeedGrabbingProps) => (
+export const GrabbingFeedItem = (props: GrabbingFeedItem) => (
   <ContentContainer>
     <Title>{props.title}</Title>
     <Author>{props.author}</Author>

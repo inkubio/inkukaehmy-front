@@ -1,21 +1,21 @@
-const API_URL = 'localhost/wp-json/inku-kaehmy/v1';
+const API_URL = 'http://localhost/wp-json/inku-kaehmy/v1';
 
 /*
  * Types
  */
-type Tag = {
+export type Tag = {
   ID: number;
   name: string;
 };
 
-type Grabbing = {
+export type Grabbing = {
   ID: number;
-  name: string;
-  title: string;
-  text: string;
+  userID: string;
+  grabbing_title: string;
+  grabbing_text: string;
   tags: Array<Tag>;
-  timestamp: string;
-  is_board: boolean;
+  time_stamp: string;
+  is_hallitus: boolean;
 };
 
 /*
