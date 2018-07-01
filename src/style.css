@@ -1,0 +1,41 @@
+/*
+ * Define project wide constants and styles
+ */
+:root {
+  --GREEN: rgb(11, 163, 96);
+  --GREEN-LIGHT: rgb(68, 209, 146);
+  --WHITE: rgb(255, 255, 255);
+
+  --SHADOW-CARD: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+
+  /* Base styles */
+  font-family: 'Open Sans';
+  font-size: 16px;
+  padding: 3rem;
+  background-color: rgb(230, 230, 230);
+}
+
+.content {
+  box-shadow: var(--SHADOW-CARD);
+  background-color: var(--WHITE);
+  padding: 2rem;
+}
+
+.button-pill {
+  color: var(--GREEN);
+  font-size: 1.2rem;
+  border: 2px solid;
+  border-radius: 50px;
+  border-color: var(--GREEN);
+  padding: 5px 50px;
+  -webkit-transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s;
+  text-decoration: none;
+}
+
+.button-pill:hover {
+  color: var(--GREEN-LIGHT);
+  border-color: var(--GREEN-LIGHT);
+  -webkit-transition: all 0.2s ease-in-out 0s;
+  transition: all 0.2s ease-in-out 0s;
+}
