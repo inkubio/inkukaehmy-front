@@ -5,5 +5,9 @@ type TitleProps = {
 };
 
 export const Title = (props: TitleProps) => (
-  <h1 className="text-title">{props.children}</h1>
+  <h2 className="text-title">{props.children}</h2>
+);
+
+export const PageTitle = (props: TitleProps) => (
+  <h1 className="text-page-title">{props.children}</h1>
 );
