@@ -4,6 +4,14 @@ type TimestampProps = {
   children: string;
 };
 
-export const Timestamp = (props: TimestampProps) => (
-  <div className="text-timestamp">{props.children}</div>
-);
+export const Timestamp = (props: TimestampProps) => {
+  const parts = props.children.slice(0, -3).split(' ');
+  const date = parts[0]
+    .split('-')
+    .reverse()
+    .map(part => parseInt(part).toString())
+    .join('.');
+  const time = parts[1];
+
+  return <div className="text-timestamp">{`${time}, ${date}`}</div>;
+};

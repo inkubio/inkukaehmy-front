@@ -136,7 +136,6 @@ video {
 
 .text-author {
   font-size: 0.8rem;
-  font-style: italic;
   padding-bottom: 0.5rem;
   padding-right: 0.5rem;
   display: inline-block;
@@ -144,6 +143,7 @@ video {
 
 .text-timestamp {
   font-size: 0.8rem;
+  font-style: italic;
   padding-bottom: 0.5rem;
   padding-right: 0.5rem;
   display: inline-block;
