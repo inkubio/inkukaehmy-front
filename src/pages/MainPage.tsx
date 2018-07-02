@@ -1,10 +1,12 @@
 import * as React from 'react';
-import { Grabbing, getGrabbings } from '../functions';
+import { TGrabbing, TAppState } from '../types';
+import { StoreConsumer } from '../App';
+import { objectToArray } from '../functions';
 import { GrabbingFeed } from '../components/GrabbingFeed';
 import { MainContent } from '../components/MainContent';
 
 interface IMainPageState {
-  grabbings: Array<Grabbing>;
+  grabbings: Array<TGrabbing>;
 }
 
 interface IMainPageProps {
@@ -19,17 +21,16 @@ export class MainPage extends React.Component<IMainPageProps, IMainPageState> {
     };
   }
 
-  async componentWillMount() {
-    const grabbings: Array<Grabbing> = await getGrabbings();
-    this.setState({ grabbings });
-  }
-
   render() {
     return (
-      <React.Fragment>
-        <MainContent />
-        <GrabbingFeed grabs={this.state.grabbings} />
-      </React.Fragment>
+      <StoreConsumer>
+        {(store: TAppState) => (
+          <React.Fragment>
+            <MainContent />
+            <GrabbingFeed grabs={objectToArray(store.grabbings)} />
+          </React.Fragment>
+        )}
+      </StoreConsumer>
     );
   }
 }
