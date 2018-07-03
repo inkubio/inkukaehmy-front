@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { TAppState } from './types';
 import { getGrabbings, arrayToObject } from './functions';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import { MainPage } from './pages/MainPage';
 import { GrabbingPage } from './pages/GrabbingPage';
 import { FormPage } from './pages/FormPage';
@@ -30,11 +30,13 @@ export default class App extends React.Component<{}, TAppState> {
   render() {
     return (
       <StoreProvider value={this.state}>
-        <Switch>
-          <Route exact path="/" component={MainPage} />
-          <Route path="/grabbing/:id" component={GrabbingPage} />
-          <Route path="/form" component={FormPage} />
-        </Switch>
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/" component={MainPage} />
+            <Route path="/grabbing/:id" component={GrabbingPage} />
+            <Route path="/form" component={FormPage} />
+          </Switch>
+        </BrowserRouter>
       </StoreProvider>
     );
   }
