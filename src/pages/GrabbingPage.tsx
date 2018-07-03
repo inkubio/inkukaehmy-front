@@ -3,6 +3,7 @@ import { TGrabbing, TComment, TAppState } from '../types';
 import { StoreConsumer } from '../App';
 import { getGrabbingComments } from '../functions';
 import { Grabbing } from '../components/Grabbing';
+import { Comment } from '../components/Comment';
 
 interface IGrabbingPageState {
   grabbing: TGrabbing | null;
@@ -38,7 +39,13 @@ export class GrabbingPage extends React.Component<
       <StoreConsumer>
         {(store: TAppState) => (
           <React.Fragment>
-            <Grabbing {...store.grabbings[this.id]} />
+            {store.grabbings[this.id] && ( // Ensure the data exists
+              <Grabbing {...store.grabbings[this.id]} />
+            )}
+
+            {this.state.comments.map(comment => (
+              <Comment key={comment.ID} {...comment} />
+            ))}
           </React.Fragment>
         )}
       </StoreConsumer>
