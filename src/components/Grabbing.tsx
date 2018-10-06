@@ -1,12 +1,13 @@
 import * as React from 'react';
-import { ContentContainer } from '../components/ContentContainer';
-import { Title } from './Title';
-import { TextContent } from './TextContent';
-import { Author } from './Author';
-import { Timestamp } from './Timestamp';
-import { TGrabbing } from '../types';
+import { IGrabbing } from '../types';
 
-export const Grabbing = (props: TGrabbing) => (
+import { ContentContainer } from '../components/ContentContainer';
+import { Author } from './Author';
+import { TextContent } from './TextContent';
+import { Timestamp } from './Timestamp';
+import { Title } from './Title';
+
+export const Grabbing = (props: IGrabbing) => (
   <ContentContainer>
     <Title>{props.title}</Title>
     <Author>{props.username}</Author>

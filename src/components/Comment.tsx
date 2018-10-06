@@ -1,13 +1,13 @@
 import * as React from 'react';
-import { ContentContainer } from '../components/ContentContainer';
-import { TextContent } from './TextContent';
-import { Author } from './Author';
-import { Timestamp } from './Timestamp';
-import { TComment } from '../types';
+import { IComment } from '../types';
 
-export const Comment = (props: TComment) => (
+import { ContentContainer } from '../components/ContentContainer';
+import { Author } from './Author';
+import { TextContent } from './TextContent';
+import { Timestamp } from './Timestamp';
+
+export const Comment = (props: IComment) => (
   <ContentContainer>
-    {console.log(props)}
     <Author>{props.username}</Author>
     <Timestamp>{props.timestamp}</Timestamp>
     <TextContent>{props.text}</TextContent>

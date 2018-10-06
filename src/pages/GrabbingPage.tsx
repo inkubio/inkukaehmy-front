@@ -1,13 +1,14 @@
 import * as React from 'react';
-import { TGrabbing, TComment, TAppState } from '../types';
 import { StoreConsumer } from '../App';
-import { getGrabbingComments } from '../functions';
-import { Grabbing } from '../components/Grabbing';
+import { IAppState, IComment, IGrabbing } from '../types';
+
 import { Comment } from '../components/Comment';
+import { Grabbing } from '../components/Grabbing';
+import { getGrabbingComments } from '../functions';
 
 interface IGrabbingPageState {
-  grabbing: TGrabbing | null;
-  comments: Array<TComment>;
+  grabbing: IGrabbing | null;
+  comments: IComment[];
 }
 
 interface IGrabbingPageProps {
@@ -23,21 +24,21 @@ export class GrabbingPage extends React.Component<
   constructor(props: IGrabbingPageProps) {
     super(props);
     this.state = {
-      grabbing: null,
       comments: [],
+      grabbing: null,
     };
   }
 
   async componentWillMount() {
     const id: number = this.id;
-    const comments: Array<TComment> = await getGrabbingComments(id);
+    const comments: IComment[] = await getGrabbingComments(id);
     this.setState({ comments });
   }
 
   render() {
     return (
       <StoreConsumer>
-        {(store: TAppState) => (
+        {(store: IAppState) => (
           <React.Fragment>
             {store.grabbings[this.id] && ( // Ensure the data exists
               <Grabbing {...store.grabbings[this.id]} />

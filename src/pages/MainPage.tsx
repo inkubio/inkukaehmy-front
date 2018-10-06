@@ -1,12 +1,13 @@
 import * as React from 'react';
-import { TGrabbing, TAppState } from '../types';
 import { StoreConsumer } from '../App';
-import { objectToArray } from '../functions';
+import { IAppState, IGrabbing } from '../types';
+
 import { GrabbingFeed } from '../components/GrabbingFeed';
 import { MainContent } from '../components/MainContent';
+import { objectToArray } from '../functions';
 
 interface IMainPageState {
-  grabbings: Array<TGrabbing>;
+  grabbings: IGrabbing[];
 }
 
 interface IMainPageProps {
@@ -24,7 +25,7 @@ export class MainPage extends React.Component<IMainPageProps, IMainPageState> {
   render() {
     return (
       <StoreConsumer>
-        {(store: TAppState) => (
+        {(store: IAppState) => (
           <React.Fragment>
             <MainContent />
             <GrabbingFeed grabs={objectToArray(store.grabbings)} />

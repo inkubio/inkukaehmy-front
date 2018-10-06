@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { ContentContainer } from '../components/ContentContainer';
+
 import { ButtonPillLink } from '../components/ButtonPill';
-import { PageTitle } from '../components/Title';
+import { ContentContainer } from '../components/ContentContainer';
 import { TextContent } from '../components/TextContent';
+import { PageTitle } from '../components/Title';
 
 export const MainContent = () => (
   <ContentContainer>

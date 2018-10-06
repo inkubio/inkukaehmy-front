@@ -1,23 +1,23 @@
 import * as React from 'react';
 import {Link} from 'react-router-dom';
 
-type ButtonPillLinkProps = {
+interface IButtonPillLinkProps {
     text: string
     to: string
 }
 
-type ButtonPillProps = {
+interface IButtonPillProps {
     text: string
     callback: () => any
 }
 
-export const ButtonPill = (props: ButtonPillProps) => (
+export const ButtonPill = (props: IButtonPillProps) => (
     <a className="button-pill" onClick={props.callback}>
         {props.text}
     </a>
 );
 
-export const ButtonPillLink = (props: ButtonPillLinkProps) => (
+export const ButtonPillLink = (props: IButtonPillLinkProps) => (
     <Link className="button-pill" to={props.to}>
         {props.text}
     </Link>

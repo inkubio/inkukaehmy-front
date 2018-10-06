@@ -1,19 +1,20 @@
 import * as React from 'react';
-import { TAppState } from './types';
-import { getGrabbings, arrayToObject } from './functions';
-import { Switch, Route, BrowserRouter } from 'react-router-dom';
-import { MainPage } from './pages/MainPage';
-import { GrabbingPage } from './pages/GrabbingPage';
-import { FormPage } from './pages/FormPage';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { arrayToObject, getGrabbings } from './functions';
+import { IAppState } from './types';
 
-import './style.css';
+import { FormPage } from './pages/FormPage';
+import { GrabbingPage } from './pages/GrabbingPage';
+import { MainPage } from './pages/MainPage';
+
 import 'react-mde/lib/styles/css/react-mde-all.css';
+import './style.css';
 
 const { Provider, Consumer } = React.createContext({});
 export const StoreProvider = Provider;
 export const StoreConsumer = Consumer;
 
-export default class App extends React.Component<{}, TAppState> {
+export default class App extends React.Component<{}, IAppState> {
   constructor(props: any) {
     super(props);
     this.state = {

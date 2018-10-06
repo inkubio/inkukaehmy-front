@@ -5,12 +5,10 @@
       "config/**/*.js",
       "node_modules/**/*.ts"
     ]
-<<<<<<< HEAD
   },
   "rules": {
     "jsx-boolean-value": false,
-    "jsx-no-lambda": false
-=======
->>>>>>> 7851d76... Initial commit
+    "jsx-no-lambda": false,
+    "member-access": false
   }
 }

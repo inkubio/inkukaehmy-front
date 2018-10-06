@@ -1,15 +1,15 @@
 import * as React from 'react';
 
-type TimestampProps = {
+interface ITimestampProps {
   children: string;
 };
 
-export const Timestamp = (props: TimestampProps) => {
+export const Timestamp = (props: ITimestampProps) => {
   const parts = props.children.slice(0, -3).split(' ');
   const date = parts[0]
     .split('-')
     .reverse()
-    .map(part => parseInt(part).toString())
+    .map(part => parseInt(part, 10).toString())
     .join('.');
   const time = parts[1];
 

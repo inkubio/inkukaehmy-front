@@ -1,12 +1,13 @@
 import * as React from 'react';
-import { GrabbingFeedItem } from './GrabbingFeedItem';
-import { TGrabbing } from '../types';
+import { IGrabbing } from '../types';
 
-type GrabbingFeedProps = {
-  grabs: Array<TGrabbing>;
+import { GrabbingFeedItem } from './GrabbingFeedItem';
+
+interface IGrabbingFeedProps {
+  grabs: IGrabbing[];
 };
 
-export const GrabbingFeed = (props: GrabbingFeedProps) => (
+export const GrabbingFeed = (props: IGrabbingFeedProps) => (
   <React.Fragment>
     {props.grabs.map(grab => <GrabbingFeedItem key={grab.ID} {...grab} />)}
   </React.Fragment>

@@ -1,29 +1,29 @@
-export type TTag = {
+export interface ITag {
   ID: number;
   name: string;
 };
 
-export type TGrabbing = {
+export interface IGrabbing {
   ID: number;
   username: string;
   title: string;
   text: string;
-  tags: Array<TTag>;
+  tags: ITag[];
   timestamp: string;
   is_hallitus: boolean;
-  comments?: Array<TComment>;
+  comments?: IComment[];
 };
 
-export type TComment = {
+export interface IComment {
   ID: number;
   username: string;
   text: string;
   timestamp: string;
   depth: number;
-  comments: Array<TComment>;
+  comments: IComment[];
 };
 
-export type TAppState = {
-  grabbings: { [key: number]: TGrabbing };
+export interface IAppState {
+  grabbings: { [key: number]: IGrabbing };
   update: (newState: any) => void;
 };

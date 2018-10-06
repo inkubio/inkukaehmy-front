@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-type TextContentProps = {
+interface ITextContentProps {
   children: string;
 };
 
-export const TextContent = (props: TextContentProps) => (
+export const TextContent = (props: ITextContentProps) => (
   <div className="text-basic">{props.children}</div>
 );

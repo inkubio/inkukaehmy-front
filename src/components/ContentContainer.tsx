@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-type ContentContainerProps = {
+interface IContentContainerProps {
   children: any;
 };
 
-export const ContentContainer = (props: ContentContainerProps) => (
+export const ContentContainer = (props: IContentContainerProps) => (
   <div className="content">{props.children}</div>
 );

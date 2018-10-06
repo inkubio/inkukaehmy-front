@@ -1,4 +1,4 @@
-import { TGrabbing, TComment } from './types';
+import { IComment, IGrabbing } from './types';
 
 const API_URL = 'http://localhost/wp-json/inku-kaehmy/v1';
 
@@ -7,27 +7,27 @@ const API_URL = 'http://localhost/wp-json/inku-kaehmy/v1';
  */
 const _GET = (endpoint: string): any => {
   return fetch(`${API_URL}${endpoint}`, {
-    method: 'GET',
     headers: {
       Accept: 'application/json',
       'Content-type': 'application/json',
     },
+    method: 'GET',
   })
     .then(resp => resp.json())
-    .catch(e => console.error(e));
+    .catch(e => console.error(e)); // tslint:disable-line no-console
 };
 
 const _POST = (endpoint: string, data: any): any => {
   return fetch(`${API_URL}${endpoint}`, {
-    method: 'POST',
+    body: JSON.stringify(data),
     headers: {
       Accept: 'application/json',
       'Content-type': 'application/json',
     },
-    body: JSON.stringify(data),
+    method: 'POST',
   })
     .then(resp => resp.json())
-    .catch(e => console.error(e));
+    .catch(e => console.error(e)); // tslint:disable-line no-console
 };
 
 /*
@@ -36,11 +36,11 @@ const _POST = (endpoint: string, data: any): any => {
 
 // Transform array of objects to object of objects with ID as key
 interface IArrayToObject {
-  (array: Array<TGrabbing>): { [key: number]: TGrabbing };
-  (array: Array<TComment>): { [key: number]: TComment };
+  (array: IGrabbing[]): { [key: number]: IGrabbing };
+  (array: IComment[]): { [key: number]: IComment };
 }
 
-export const arrayToObject: IArrayToObject = (array: Array<any>) =>
+export const arrayToObject: IArrayToObject = (array: any[]) =>
   array.reduce((obj: any, item: any) => {
     obj[item.ID] = item;
     return obj;
@@ -48,8 +48,8 @@ export const arrayToObject: IArrayToObject = (array: Array<any>) =>
 
 // Transform object of objects to array and discard keys
 interface IObjectToArray {
-  (obj: { [key: number]: TGrabbing }): Array<TGrabbing>;
-  (obj: { [key: number]: TComment }): Array<TComment>;
+  (obj: { [key: number]: IGrabbing }): IGrabbing[];
+  (obj: { [key: number]: IComment }): IComment[];
 }
 
 export const objectToArray: IObjectToArray = (obj: any) => {
@@ -57,18 +57,18 @@ export const objectToArray: IObjectToArray = (obj: any) => {
 };
 
 // Request functions
-export const getGrabbings = (): Array<TGrabbing> => {
+export const getGrabbings = (): IGrabbing[] => {
   return _GET('/grabbings');
 };
 
-export const getGrabbing = (id: number): TGrabbing => {
+export const getGrabbing = (id: number): IGrabbing => {
   return _GET(`/grabbing/${id}`);
 };
 
-export const getGrabbingComments = (id: number): Array<TComment> => {
+export const getGrabbingComments = (id: number): IComment[] => {
   return _GET(`/grabbing/${id}/comments`);
 };
 
-export const postGrabbing = (payload: TGrabbing) => {
+export const postGrabbing = (payload: IGrabbing) => {
   return _POST('/grabbings', payload);
 };

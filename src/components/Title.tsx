@@ -1,13 +1,13 @@
 import * as React from 'react';
 
-type TitleProps = {
+interface ITitleProps {
   children: string;
 };
 
-export const Title = (props: TitleProps) => (
+export const Title = (props: ITitleProps) => (
   <h2 className="text-title">{props.children}</h2>
 );
 
-export const PageTitle = (props: TitleProps) => (
+export const PageTitle = (props: ITitleProps) => (
   <h1 className="text-page-title">{props.children}</h1>
 );
