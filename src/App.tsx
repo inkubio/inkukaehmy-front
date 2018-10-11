@@ -7,7 +7,6 @@ import { FormPage } from './pages/FormPage';
 import { GrabbingPage } from './pages/GrabbingPage';
 import { MainPage } from './pages/MainPage';
 
-import 'react-mde/lib/styles/css/react-mde-all.css';
 import './style.css';
 
 const { Provider, Consumer } = React.createContext({});
