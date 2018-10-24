@@ -1,100 +1,4 @@
 /*
- * CSS reset
- */
-html {
-  box-sizing: border-box;
-}
-
-html,
-body,
-div,
-span,
-applet,
-object,
-iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-pre,
-a,
-abbr,
-acronym,
-address,
-big,
-cite,
-code,
-del,
-dfn,
-em,
-img,
-ins,
-kbd,
-q,
-s,
-samp,
-small,
-strike,
-strong,
-sub,
-sup,
-tt,
-var,
-b,
-u,
-i,
-center,
-dl,
-dt,
-dd,
-ol,
-ul,
-li,
-fieldset,
-form,
-label,
-legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
-article,
-aside,
-canvas,
-details,
-embed,
-figure,
-figcaption,
-footer,
-header,
-hgroup,
-menu,
-nav,
-output,
-ruby,
-section,
-summary,
-time,
-mark,
-audio,
-video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-}
-
-/*
  * Define project wide constants and styles
  */
 :root {
@@ -108,7 +12,6 @@ video {
   /* Base styles */
   font-family: 'Open Sans';
   font-size: 16px;
-  padding: 3rem;
   background-color: rgb(230, 230, 230);
 }
 
@@ -155,14 +58,38 @@ video {
   border: 2px solid;
   border-radius: 50px;
   border-color: var(--GREEN);
-  padding: 5px 35px;
+  padding: 10px 35px 5px 35px;
   -webkit-transition: all 0.3s ease-in-out 0s;
   transition: all 0.3s ease-in-out 0s;
   text-decoration: none;
   display: inline-block;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.link-pill {
+  color: var(--GREEN);
+  font-size: 1.2rem;
+  border: 2px solid;
+  border-radius: 50px;
+  border-color: var(--GREEN);
+  padding: 4px 35px 5px 35px;
+  -webkit-transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
 }
 
 .button-pill:hover {
+  color: var(--GREEN-LIGHT);
+  border-color: var(--GREEN-LIGHT);
+  -webkit-transition: all 0.2s ease-in-out 0s;
+  transition: all 0.2s ease-in-out 0s;
+}
+
+button:focus {
+  outline: 0;
   color: var(--GREEN-LIGHT);
   border-color: var(--GREEN-LIGHT);
   -webkit-transition: all 0.2s ease-in-out 0s;
@@ -192,4 +119,61 @@ i.arrow.right {
 i.arrow.left {
   transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
+}
+
+label {
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.form-group {
+  padding-top: 1rem;
+  padding-bottom: 0.3rem;
+}
+
+.toggle {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.toggle input {
+  position: fixed;
+  opacity: 0;
+}
+
+.toggle label {
+  padding: 0.3rem 1.2rem;
+  color: var(--GREEN);
+  font-size: 1rem;
+  border: 2px solid;
+  border-radius: 50px;
+  border-color: var(--GREEN);
+  -webkit-transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.toggle label:first-of-type {
+  border-radius: 50px 0 0 50px;
+  border-right: 0;
+}
+
+.toggle label:last-of-type {
+  border-radius: 0 50px 50px 0;
+}
+
+.toggle input:hover + label,
+.toggle input:focus + label {
+  color: var(--GREEN-LIGHT);
+  border-color: var(--GREEN-LIGHT);
+  -webkit-transition: all 0.2s ease-in-out 0s;
+  transition: all 0.2s ease-in-out 0s;
+}
+
+.toggle input:checked + label {
+  color: var(--WHITE);
+  border-color: var(--GREEN);
+  background-color: var(--GREEN);
 }

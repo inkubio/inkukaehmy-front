@@ -5,5 +5,5 @@ interface ITextContentProps {
 };
 
 export const TextContent = (props: ITextContentProps) => (
-  <div className="text-basic">{props.children}</div>
+  <div className="text-basic" dangerouslySetInnerHTML={{__html: props.children}} />
 );

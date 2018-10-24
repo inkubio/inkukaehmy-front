@@ -7,6 +7,7 @@ const API_URL = 'http://localhost/wp-json/inku-kaehmy/v1';
  */
 const _GET = (endpoint: string): any => {
   return fetch(`${API_URL}${endpoint}`, {
+    credentials: 'same-origin',
     headers: {
       Accept: 'application/json',
       'Content-type': 'application/json',
@@ -20,9 +21,11 @@ const _GET = (endpoint: string): any => {
 const _POST = (endpoint: string, data: any): any => {
   return fetch(`${API_URL}${endpoint}`, {
     body: JSON.stringify(data),
+    credentials: 'same-origin',
     headers: {
       Accept: 'application/json',
       'Content-type': 'application/json',
+      'X-WP-Nonce': (window as any).wpApiSettings.nonce,
     },
     method: 'POST',
   })
@@ -69,6 +72,8 @@ export const getGrabbingComments = (id: number): IComment[] => {
   return _GET(`/grabbing/${id}/comments`);
 };
 
-export const postGrabbing = (payload: IGrabbing) => {
+export const postGrabbing = (payload: Pick<IGrabbing,
+    'title' | 'text' | 'user_ID' | 'tags' | 'is_hallitus' | 'batch'
+>) => {
   return _POST('/grabbings', payload);
 };

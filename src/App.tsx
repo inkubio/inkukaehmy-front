@@ -13,6 +13,20 @@ const { Provider, Consumer } = React.createContext({});
 export const StoreProvider = Provider;
 export const StoreConsumer = Consumer;
 
+const QueryRouter = (props: any): any => {
+  const params = new URLSearchParams(props.location.search);
+  const page = params.get('page');
+  console.log(page); //tslint:disable-line
+  if (page === 'form') {
+    return <FormPage />;
+  } else if (page === 'grabbings') {
+    return <GrabbingPage props={props} />
+  } else if (page === 'grabbing') {
+    return <GrabbingPage id={params.get('id')} />
+  }
+  return <MainPage props={{}}/>;
+};
+
 export default class App extends React.Component<{}, IAppState> {
   constructor(props: any) {
     super(props);
@@ -32,9 +46,7 @@ export default class App extends React.Component<{}, IAppState> {
       <StoreProvider value={this.state}>
         <BrowserRouter>
           <Switch>
-            <Route exact path="/" component={MainPage} />
-            <Route path="/grabbing/:id" component={GrabbingPage} />
-            <Route path="/form" component={FormPage} />
+            <Route exact path="/kiltalaisille/hallinto/kahmyt/" component={QueryRouter} />
           </Switch>
         </BrowserRouter>
       </StoreProvider>

@@ -8,17 +8,17 @@ interface IButtonPillLinkProps {
 
 interface IButtonPillProps {
     text: string
-    callback: () => any
+    callback: (args: any) => any
 }
 
 export const ButtonPill = (props: IButtonPillProps) => (
-    <a className="button-pill" onClick={props.callback}>
+    <button className="button-pill" onClick={props.callback}>
         {props.text}
-    </a>
+    </button>
 );
 
 export const ButtonPillLink = (props: IButtonPillLinkProps) => (
-    <Link className="button-pill" to={props.to}>
+    <Link className="link-pill" to={props.to}>
         {props.text}
     </Link>
 );

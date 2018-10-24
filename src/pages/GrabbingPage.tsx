@@ -12,14 +12,14 @@ interface IGrabbingPageState {
 }
 
 interface IGrabbingPageProps {
-  props: any;
+  props: { id: number };
 }
 
 export class GrabbingPage extends React.Component<
   IGrabbingPageProps & any,
   IGrabbingPageState
 > {
-  id: number = this.props.match.params.id;
+  id: number = this.props.id;
 
   constructor(props: IGrabbingPageProps) {
     super(props);

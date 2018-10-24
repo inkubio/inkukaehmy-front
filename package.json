@@ -2,7 +2,14 @@
   "name": "inku-kaehmy-front",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "webpack-dev-server --mode development",
+    "dev": "webpack --mode=development",
+    "build": "webpack",
+    "stats": "webpack --json > stats.json"
+  },
   "dependencies": {
+    "@tinymce/tinymce-react": "^2.3.0",
     "autoprefixer": "7.1.6",
     "babel-jest": "22.1.0",
     "babel-loader": "7.1.4",
@@ -24,15 +31,12 @@
     "react-router-dom": "4.3.1",
     "resolve": "1.6.0",
     "source-map-loader": "0.2.1",
+    "tinymce": "^4.8.3",
     "tslint": "5.7.0",
     "tslint-config-prettier": "1.10.0",
     "tslint-react": "3.2.0",
     "url-loader": "0.6.2",
     "whatwg-fetch": "2.0.3"
-  },
-  "scripts": {
-    "start": "webpack-dev-server --mode development",
-    "dev": "webpack --mode=development"
   },
   "devDependencies": {
     "@types/draft-js": "0.10.23",
@@ -42,6 +46,7 @@
     "@types/react-dom": "16.0.6",
     "@types/react-router": "^4.0.27",
     "@types/react-router-dom": "4.2.7",
+    "@types/tinymce": "^4.5.16",
     "css-loader": "0.28.11",
     "html-loader": "0.5.5",
     "html-webpack-plugin": "3.2.0",

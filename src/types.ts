@@ -6,11 +6,13 @@ export interface ITag {
 export interface IGrabbing {
   ID: number;
   username: string;
+  user_ID: number;
   title: string;
   text: string;
   tags: ITag[];
   timestamp: string;
   is_hallitus: boolean;
+  batch: string;
   comments?: IComment[];
 };
 

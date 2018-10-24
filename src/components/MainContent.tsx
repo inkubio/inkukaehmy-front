@@ -19,7 +19,7 @@ export const MainContent = () => (
       publishing software like Aldus PageMaker including versions of Lorem
       Ipsum.
     </TextContent>
-    <ButtonPillLink text="New grab" to="/form" />
-    <ButtonPillLink text="View grabbings" to="/grabbing" />
+    <ButtonPillLink text="New grab" to="?page=form" />
+    <ButtonPillLink text="View grabbings" to="?page=grabbings" />
   </ContentContainer>
 );
