@@ -78,7 +78,7 @@ export class GrabbingForm extends React.Component<{}, IGrabbingFormState> {
         </div>
 
         <div className="form-group">
-          <label>Haen:</label>
+          <label className="toggle-label">Haen:</label>
           <div className="toggle">
             <input
               id="official"
@@ -86,14 +86,14 @@ export class GrabbingForm extends React.Component<{}, IGrabbingFormState> {
               type="radio"
               onChange={this.handleBoardChange}
             />
-            <label htmlFor="official">Toimariksi</label>
+            <label className="toggle-label" htmlFor="official">Toimariksi</label>
             <input
               id="board"
               name="is_hallitus"
               type="radio"
               onChange={this.handleBoardChange}
             />
-            <label htmlFor="board">Hallitukseen</label>
+            <label className="toggle-label" htmlFor="board">Hallitukseen</label>
           </div>
         </div>
 

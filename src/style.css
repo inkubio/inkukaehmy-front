@@ -121,7 +121,7 @@ i.arrow.left {
   -webkit-transform: rotate(45deg);
 }
 
-label {
+.toggle-label {
   display: block;
   margin-bottom: 0.3rem;
 }

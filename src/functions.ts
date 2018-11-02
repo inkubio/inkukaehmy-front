@@ -72,6 +72,10 @@ export const getGrabbingComments = (id: number): IComment[] => {
   return _GET(`/grabbing/${id}/comments`);
 };
 
+export const getCurrentUserId = (): number => {
+  return _GET('/me');
+}
+
 export const postGrabbing = (payload: Pick<IGrabbing,
     'title' | 'text' | 'user_ID' | 'tags' | 'is_hallitus' | 'batch'
 >) => {

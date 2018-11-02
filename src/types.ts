@@ -25,7 +25,14 @@ export interface IComment {
   comments: IComment[];
 };
 
+export type Sortable = 'newest' | 'oldest';
+export type Filterable = 'all' | 'board' | 'official';
+
 export interface IAppState {
+  currentUserID: number;
   grabbings: { [key: number]: IGrabbing };
+  visibleGrabbings: IGrabbing[];
   update: (newState: any) => void;
+  sortBy: Sortable;
+  filterBy: Filterable;
 };
