@@ -60,7 +60,9 @@ export class GrabbingForm extends React.Component<{}, IGrabbingFormState> {
       tags: [],
       user_ID: 123,
     };
-    postGrabbing(data);
+    if (postGrabbing(data)) {
+      window.location = '/kiltalaisille/hallinto/kahmyt/' as any;
+    }
     console.log(data); // tslint:disable-line
   }
 
