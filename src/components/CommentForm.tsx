@@ -99,7 +99,8 @@ export class CommentForm extends React.Component<ICommentFormProps, ICommentForm
           <div className="form-group">
             <ButtonPill
               callback={(e) => this.submit(this.props.refreshCallback, e)}
-              text="Lähetä"
+              text="Lähetä!"
+              primary
             />
           </div>
         </form>

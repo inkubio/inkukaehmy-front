@@ -117,7 +117,7 @@ export class GrabbingForm extends React.Component<{}, IGrabbingFormState> {
         </div>
 
         <div className="form-group">
-          <ButtonPill callback={this.submit} text="Kähmyä!"/>
+          <ButtonPill callback={this.submit} text="Kähmyä!" primary/>
         </div>
       </form>
     );
