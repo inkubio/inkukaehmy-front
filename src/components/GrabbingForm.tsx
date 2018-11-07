@@ -58,7 +58,6 @@ export class GrabbingForm extends React.Component<{}, IGrabbingFormState> {
       ...this.state,
       batch: '2018',
       tags: [],
-      user_ID: 123,
     };
     if (postGrabbing(data)) {
       window.location = '/kiltalaisille/hallinto/kahmyt/' as any;
@@ -104,6 +103,7 @@ export class GrabbingForm extends React.Component<{}, IGrabbingFormState> {
           <Editor
             value={this.state.text}
             init={{
+              entity_encoding: 'raw',
               height: '200',
               menubar: 'edit insert format view',
               plugins: 'link image code preview',

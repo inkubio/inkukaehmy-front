@@ -30,7 +30,7 @@ const _POST = (endpoint: string, data: any): any => {
     method: 'POST',
   })
     .then(resp => resp.json())
-    .catch(e => console.error(e)); // tslint:disable-line no-console
+    .catch(e => {console.error(e); return false}); // tslint:disable-line no-console
 };
 
 /*
@@ -73,11 +73,18 @@ export const getGrabbingComments = (id: number): IComment[] => {
 };
 
 export const getCurrentUserId = (): number => {
-  return _GET('/me');
+  return _POST('/me', {});
 }
 
 export const postGrabbing = (payload: Pick<IGrabbing,
-    'title' | 'text' | 'user_ID' | 'tags' | 'is_hallitus' | 'batch'
+    'title' | 'text' | 'tags' | 'is_hallitus' | 'batch'
 >) => {
   return _POST('/grabbings', payload);
 };
+
+
+export const postComment = (payload:
+  {text: string, parent_grabbing_id: number, parent_comment_id?: number}
+) => {
+  return _POST('/comments', payload);
+}

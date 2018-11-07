@@ -43,9 +43,10 @@ export default class App extends React.Component<{}, IAppState> {
   }
 
   async componentDidMount() {
-    const currentUserID = await getCurrentUserId();
     const grabbings = await getGrabbings();
-    this.setState({ currentUserID, grabbings: arrayToObject(grabbings) });
+    this.setState({ grabbings: arrayToObject(grabbings) });
+    const currentUserID = await getCurrentUserId();
+    this.setState({ currentUserID });
   }
 
   render() {

@@ -3,6 +3,7 @@ import { StoreConsumer } from '../App';
 import { IAppState, IComment, IGrabbing } from '../types';
 
 import { Comment } from '../components/Comment';
+import { ContentContainer } from '../components/ContentContainer';
 import { Grabbing } from '../components/Grabbing';
 import { getGrabbingComments } from '../functions';
 
@@ -27,11 +28,16 @@ export class GrabbingPage extends React.Component<
       comments: [],
       grabbing: null,
     };
+    this.refreshComments = this.refreshComments.bind(this);
   }
 
   async componentWillMount() {
-    const id: number = this.id;
-    const comments: IComment[] = await getGrabbingComments(id);
+    const comments = await getGrabbingComments(this.id);
+    this.setState({ comments });
+  }
+
+  async refreshComments() {
+    const comments = await getGrabbingComments(this.id);
     this.setState({ comments });
   }
 
@@ -41,12 +47,23 @@ export class GrabbingPage extends React.Component<
         {(store: IAppState) => (
           <React.Fragment>
             {store.grabbings[this.id] && ( // Ensure the data exists
-              <Grabbing {...store.grabbings[this.id]} />
+              <Grabbing
+                refreshCallback={() => this.refreshComments()}
+                {...store.grabbings[this.id]}
+              />
             )}
-
-            {this.state.comments.map(comment => (
-              <Comment key={comment.ID} {...comment} />
-            ))}
+            
+            {this.state.comments.length !== 0 &&
+              <ContentContainer>
+                {this.state.comments.map(comment => (
+                  <Comment
+                    key={comment.ID}
+                    grabbing_ID={this.id}
+                    refreshCallback={() => this.refreshComments()}
+                    {...comment} />
+                ))}
+              </ContentContainer>
+            }
           </React.Fragment>
         )}
       </StoreConsumer>

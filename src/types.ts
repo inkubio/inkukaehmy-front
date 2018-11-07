@@ -6,7 +6,7 @@ export interface ITag {
 export interface IGrabbing {
   ID: number;
   username: string;
-  user_ID: number;
+  userID: number;
   title: string;
   text: string;
   tags: ITag[];
@@ -19,6 +19,7 @@ export interface IGrabbing {
 export interface IComment {
   ID: number;
   username: string;
+  userID: number;
   text: string;
   timestamp: string;
   depth: number;

@@ -9,6 +9,7 @@ interface IGrabbingFeedState {
   showBoard: boolean;
   showOfficials: boolean;
   filterBy: Filterable;
+  filterText: string;
 };
 
 // Filter visible grabbings between board, official or all
@@ -21,6 +22,17 @@ const grabFilter = (filterBy: Filterable) => (grab: IGrabbing) => {
     return !grab.is_hallitus;
   }
 };
+
+const grabSearch = (query: string)  => (grab: IGrabbing) => {
+  if (!query) {
+    return true;
+  } else if (grab.text.toLowerCase().includes(query.toLowerCase())
+    || grab.username.toLowerCase().includes(query.toLowerCase())
+    || grab.title.toLowerCase().includes(query.toLowerCase())) {
+    return true
+  }
+  return false;
+}
 
 // Sort by either newest or oldest grabbings first
 const grabSort = (sortBy: Sortable) => (
@@ -41,13 +53,19 @@ export class GrabbingFeed extends React.Component<{grabs: IGrabbing[]}, IGrabbin
     super(props);
     this.state = {
       filterBy: 'all',
-      showBoard: true,
-      showOfficials: true,
+      filterText: '',
+      showBoard: false,
+      showOfficials: false,
       sortBy: 'newest',
     }
 
     this.onChangeVisibility = this.onChangeVisibility.bind(this);
     this.onChangeFilter = this.onChangeFilter.bind(this);
+    this.onChangeSearch = this.onChangeSearch.bind(this);
+  }
+
+  onChangeSearch(e: any) {
+    this.setState({filterText: e.target.value});
   }
 
   onChangeVisibility(e: any) {
@@ -71,13 +89,16 @@ export class GrabbingFeed extends React.Component<{grabs: IGrabbing[]}, IGrabbin
     return (
       <React.Fragment>
         <div style={{display: 'flex', justifyContent: 'center'}}>
-          <ContentContainer>
-            <select name="sortBy" onChange={this.onChangeVisibility}>
-              <option value="newest">Uusin ensin</option>
-              <option value="oldest">Vanhin ensin</option>
-            </select>
+          <ContentContainer style={{display: 'flex', borderRadius: '2rem'}}>
+            <div className="feed-control">
+              <label className="toggle-label">Lajittele</label>
+              <select name="sortBy" onChange={this.onChangeVisibility}>
+                <option value="newest">Uusin ensin</option>
+                <option value="oldest">Vanhin ensin</option>
+              </select>
+            </div>
 
-            <div>
+            <div className="feed-control">
               <label className="toggle-label">Näkyvät kähmyt</label>
               <div className="toggle">
                 <input
@@ -99,12 +120,20 @@ export class GrabbingFeed extends React.Component<{grabs: IGrabbing[]}, IGrabbin
               </div>
             </div>
 
+            <div className="feed-control">
+              <label className="toggle-label">Hae tekstillä</label>
+              <input
+                value={this.state.filterText}
+                onChange={this.onChangeSearch}
+              />
+            </div>
           </ContentContainer>
         </div>
 
         {
           this.props.grabs
             .filter(grabFilter(this.state.filterBy))
+            .filter(grabSearch(this.state.filterText))
             .sort(grabSort(this.state.sortBy))
             .map(grab => <GrabbingFeedItem key={grab.ID} {...grab} />)
         }

@@ -15,6 +15,14 @@
   background-color: rgb(230, 230, 230);
 }
 
+#kahmy p {
+  padding: 0;
+}
+
+#kahmy h1 {
+  margin: 0 0 1.5rem 0;
+}
+
 .content {
   box-shadow: var(--SHADOW-CARD);
   background-color: var(--WHITE);
@@ -42,6 +50,30 @@
   padding-bottom: 0.5rem;
   padding-right: 0.5rem;
   display: inline-block;
+}
+
+.feed-control {
+  padding: 0 1rem;
+}
+
+.comment {
+  padding-bottom: 2rem;
+}
+
+.comment + .comment {
+  padding-top: 2rem;
+  border-top: 1px solid #DDD;
+}
+
+.subcomment {
+  border-left: 2px solid #DDD;
+  margin-top: 1rem;
+  padding-left: 1rem;
+}
+
+.subcomment + .subcomment {
+  margin-top: 0;
+  padding-top: 1rem;
 }
 
 .text-timestamp {
@@ -116,9 +148,30 @@ i.arrow.right {
   -webkit-transform: rotate(-45deg);
 }
 
-i.arrow.left {
+i.arrow.down {
+  margin-left: 0.3rem;
+  margin-top: 0.4rem;
   transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
+}
+
+i.arrow.up {
+  margin-left: 0.3rem;
+  margin-top: 0.7rem;
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+
+i.arrow.small {
+  border-width: 0 1px 1px 0;
+}
+
+i.arrow.small.up {
+  margin-top: 0.75rem;
+}
+
+i.arrow.small.down {
+  margin-top: 0.5rem;
 }
 
 .toggle-label {
