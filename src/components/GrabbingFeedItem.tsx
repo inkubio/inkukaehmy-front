@@ -16,6 +16,6 @@ export const GrabbingFeedItem = (props: IGrabbing) => (
     <TextContent>
       {props.text.substring(0, props.text.indexOf('</p>'))}
     </TextContent>
-    <ButtonArrowLink text="See more" to={`?page=grabbing&id=${props.ID}`} />
+    <ButtonArrowLink text="Katso lisää" to={`?page=grabbing&id=${props.ID}`} />
   </ContentContainer>
 );

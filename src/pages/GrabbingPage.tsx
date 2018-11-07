@@ -51,7 +51,7 @@ export class GrabbingPage extends React.Component<
                 refreshCallback={() => this.refreshComments()}
                 refreshGrabbings={() => store.refreshGrabbings()}
                 {...store.grabbings[this.id]}
-                editable={store.grabbings[this.id].userID === store.currentUserID}
+                currentUserID={store.currentUserID}
               />
             )}
             
@@ -63,6 +63,7 @@ export class GrabbingPage extends React.Component<
                     key={comment.ID}
                     grabbing_ID={this.id}
                     refreshCallback={() => this.refreshComments()}
+                    currentUserID={store.currentUserID}
                     {...comment} />
                 ))}
               </ContentContainer>

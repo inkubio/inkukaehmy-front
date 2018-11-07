@@ -12,7 +12,7 @@ import { Title } from './Title';
 interface IGrabbingProps extends IGrabbing {
   refreshCallback: () => void;
   refreshGrabbings: () => void;
-  editable?: boolean;
+  currentUserID: number;
 }
 
 interface IGrabbingState {
@@ -47,7 +47,7 @@ export class Grabbing extends React.Component<IGrabbingProps, IGrabbingState> {
             <Title>{this.props.title}</Title>
             <Author>{this.props.username}</Author>
             <Timestamp>{this.props.timestamp}</Timestamp>
-            {this.props.editable &&
+            {this.props.currentUserID === this.props.userID &&
               <div className="text-author button-arrow" onClick={() => this.toggle()}>
                 Muokkaa
               </div>

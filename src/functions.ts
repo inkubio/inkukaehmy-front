@@ -75,6 +75,7 @@ export const objectToArray: IObjectToArray = (obj: any) => {
 };
 
 // Request functions
+// GETs
 export const getGrabbings = (): IGrabbing[] => {
   return _GET('/grabbings');
 };
@@ -87,6 +88,7 @@ export const getGrabbingComments = (id: number): IComment[] => {
   return _GET(`/grabbing/${id}/comments`);
 };
 
+// POSTs
 export const getCurrentUserId = (): number => {
   return _POST('/me', {});
 };
@@ -103,9 +105,14 @@ export const postComment = (payload:
   return _POST('/comments', payload);
 };
 
+// PUTs
 export const putGrabbing = (
   payload: Pick<IGrabbing, 'title' | 'text' | 'tags' | 'is_hallitus'>,
   grabbingID: number,  
 ) => {
   return _PUT(`/grabbing/${grabbingID}`, payload);
+};
+
+export const putComment = (payload: {text: string}, commentID: number) => {
+  return _PUT(`/comment/${commentID}`, payload);
 };

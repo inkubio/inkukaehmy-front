@@ -88,8 +88,8 @@ export class GrabbingFeed extends React.Component<{grabs: IGrabbing[]}, IGrabbin
   render() {
     return (
       <React.Fragment>
-        <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center'}}>
-          <ContentContainer style={{display: 'flex', borderRadius: '2rem'}}>
+        <div style={{display: 'flex', justifyContent: 'center'}}>
+          <ContentContainer style={{display: 'flex', flexWrap: 'wrap', borderRadius: '2rem'}}>
             <div className="feed-control">
               <label className="toggle-label">Lajittele</label>
               <select name="sortBy" onChange={this.onChangeVisibility}>
