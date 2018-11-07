@@ -33,7 +33,7 @@ export interface IAppState {
   currentUserID: number;
   grabbings: { [key: number]: IGrabbing };
   visibleGrabbings: IGrabbing[];
-  update: (newState: any) => void;
+  refreshGrabbings: () => void;
   sortBy: Sortable;
   filterBy: Filterable;
 };

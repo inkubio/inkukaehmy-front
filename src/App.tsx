@@ -32,12 +32,14 @@ const QueryRouter = (props: any): any => {
 export default class App extends React.Component<{}, IAppState> {
   constructor(props: any) {
     super(props);
+
+    this.refreshGrabbings = this.refreshGrabbings.bind(this);
     this.state = {
       currentUserID: 0,
       filterBy: 'all',
       grabbings: {},
+      refreshGrabbings: () => this.refreshGrabbings(),
       sortBy: 'newest',
-      update: this.setState,
       visibleGrabbings: [],
     };
   }
@@ -47,6 +49,11 @@ export default class App extends React.Component<{}, IAppState> {
     this.setState({ grabbings: arrayToObject(grabbings) });
     const currentUserID = await getCurrentUserId();
     this.setState({ currentUserID });
+  }
+
+  async refreshGrabbings() {
+    const grabbings = await getGrabbings();
+    this.setState({ grabbings: arrayToObject(grabbings) });
   }
 
   render() {

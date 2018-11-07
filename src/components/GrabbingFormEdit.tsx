@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { postGrabbing } from '../functions';
+import { putGrabbing } from '../functions';
+import { IGrabbing } from '../types';
 
 import { Editor } from '@tinymce/tinymce-react';
 import 'tinymce';
@@ -10,7 +11,12 @@ import 'tinymce/plugins/paste';
 import 'tinymce/plugins/preview';
 import 'tinymce/themes/modern/theme';
 
-import { ButtonPill } from '../components/ButtonPill';
+import { ButtonPill } from './ButtonPill';
+
+interface IGrabbingProps extends IGrabbing {
+  hideCallback: () => void;
+  refreshGrabbings: () => void;
+}
 
 interface IGrabbingFormState {
   text: string;
@@ -18,19 +24,20 @@ interface IGrabbingFormState {
   is_hallitus: boolean;
 }
 
-export class GrabbingForm extends React.Component<{}, IGrabbingFormState> {
-  constructor(props: any) {
+export class GrabbingFormEdit extends React.Component<IGrabbingProps, IGrabbingFormState> {
+  constructor(props: IGrabbingProps) {
     super(props);
     this.state = {
-      is_hallitus: false,
-      text: '<p>Insert kähmy here!</p>',
-      title: '',
+      is_hallitus: props.is_hallitus,
+      text: props.text,
+      title: props.title,
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleBoardChange = this.handleBoardChange.bind(this);
     this.handleTextChange = this.handleTextChange.bind(this);
     this.submit = this.submit.bind(this);
+    this.cancel = this.cancel.bind(this);
   }
 
   handleChange(event: any) {
@@ -56,13 +63,18 @@ export class GrabbingForm extends React.Component<{}, IGrabbingFormState> {
     event.preventDefault();
     const data = {
       ...this.state,
-      batch: '2018',
       tags: [],
     };
-    if (postGrabbing(data)) {
-      window.location = '/kiltalaisille/hallinto/kahmyt/' as any;
+    if (putGrabbing(data, this.props.ID)) {
+      this.props.refreshGrabbings();
+      console.log('awsum'); //tslint:disable-line
     }
-    console.log(data); // tslint:disable-line
+    this.props.hideCallback();
+  }
+
+  cancel(event: any) {
+    event.preventDefault();
+    this.props.hideCallback();
   }
 
   render() {
@@ -84,6 +96,7 @@ export class GrabbingForm extends React.Component<{}, IGrabbingFormState> {
           <div className="toggle">
             <input
               id="official"
+              defaultChecked={!this.props.is_hallitus}
               name="is_hallitus"
               type="radio"
               onChange={this.handleBoardChange}
@@ -91,6 +104,7 @@ export class GrabbingForm extends React.Component<{}, IGrabbingFormState> {
             <label className="toggle-label" htmlFor="official">Toimariksi</label>
             <input
               id="board"
+              defaultChecked={this.props.is_hallitus}
               name="is_hallitus"
               type="radio"
               onChange={this.handleBoardChange}
@@ -117,7 +131,8 @@ export class GrabbingForm extends React.Component<{}, IGrabbingFormState> {
         </div>
 
         <div className="form-group">
-          <ButtonPill callback={this.submit} text="Kähmyä!"/>
+          <ButtonPill callback={this.submit} text="Muuta" primary/>
+          <ButtonPill callback={this.cancel} text="Peruuta"/>
         </div>
       </form>
     );

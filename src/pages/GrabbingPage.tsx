@@ -49,12 +49,15 @@ export class GrabbingPage extends React.Component<
             {store.grabbings[this.id] && ( // Ensure the data exists
               <Grabbing
                 refreshCallback={() => this.refreshComments()}
+                refreshGrabbings={() => store.refreshGrabbings()}
                 {...store.grabbings[this.id]}
+                editable={store.grabbings[this.id].userID === store.currentUserID}
               />
             )}
             
             {this.state.comments.length !== 0 &&
               <ContentContainer>
+                <h3>Kommentit</h3>
                 {this.state.comments.map(comment => (
                   <Comment
                     key={comment.ID}

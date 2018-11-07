@@ -19,7 +19,9 @@ export const MainContent = () => (
       publishing software like Aldus PageMaker including versions of Lorem
       Ipsum.
     </TextContent>
-    <ButtonPillLink text="New grab" to="?page=form" />
-    <ButtonPillLink text="View grabbings" to="?page=grabbings" />
+    <div style={{marginTop: '2rem'}}>
+      <ButtonPillLink text="Uusi kähmy!" to="?page=form" primary />
+      <ButtonPillLink text="Selaa kähmyjä" to="?page=grabbings" />
+    </div>
   </ContentContainer>
 );

@@ -13,7 +13,9 @@ export const GrabbingFeedItem = (props: IGrabbing) => (
     <Title>{props.title}</Title>
     <Author>{props.username}</Author>
     <Timestamp>{props.timestamp}</Timestamp>
-    <TextContent>{props.text}</TextContent>
+    <TextContent>
+      {props.text.substring(0, props.text.indexOf('</p>'))}
+    </TextContent>
     <ButtonArrowLink text="See more" to={`?page=grabbing&id=${props.ID}`} />
   </ContentContainer>
 );
