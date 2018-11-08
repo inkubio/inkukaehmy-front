@@ -1,14 +1,28 @@
 import { IComment, IGrabbing } from './types';
 
-// const API_BASE = 'https://www.inkubio.fi';
-const API_BASE = 'http://localhost';
+const API_BASE = 'https://www.inkubio.fi';
+// const API_BASE = 'http://localhost';
 const API_URL = `${API_BASE}/wp-json/inku-kaehmy/v1`;
+const CONTENT_URL = `${API_BASE}/wp-json/wp/v2/pages/?slug=kähmyt`;
 
 /*
  * Abstract methods
  */
 const _GET = (endpoint: string): any => {
   return fetch(`${API_URL}${endpoint}`, {
+    credentials: 'same-origin',
+    headers: {
+      Accept: 'application/json',
+      'Content-type': 'application/json',
+    },
+    method: 'GET',
+  })
+    .then(resp => resp.json())
+    .catch(e => console.error(e)); // tslint:disable-line no-console
+};
+
+const _GETCONT = (endpoint: string): any => {
+  return fetch(`${CONTENT_URL}${endpoint}`, {
     credentials: 'same-origin',
     headers: {
       Accept: 'application/json',
@@ -96,6 +110,10 @@ export const getGrabbing = (id: number): IGrabbing => {
 export const getGrabbingComments = (id: number): IComment[] => {
   return _GET(`/grabbing/${id}/comments`);
 };
+
+export const getPageTextContent = () => {
+  return _GETCONT('');
+}
 
 // POSTs
 export const getCurrentUserId = (): number => {

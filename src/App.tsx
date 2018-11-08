@@ -5,7 +5,9 @@ import {
   getCurrentUserId,
   getGrabbingComments,
   getGrabbings,
-} from './functions';
+  getPageTextContent,
+} from './functions'
+
 import { IAppState } from './types';
 
 import { FormPage } from './pages/FormPage';
@@ -43,26 +45,29 @@ export default class App extends React.Component<{}, IAppState> {
       currentUserID: 0,
       filterBy: 'all',
       grabbings: {},
+      mainPageContent: '',
       refreshGrabbings: () => this.refreshGrabbings(),
       sortBy: 'newest',
-      visibleGrabbings: [],
     };
   }
 
   async componentDidMount() {
+    const grabbings = await getGrabbings();
     try {
       const currentUserID = await getCurrentUserId();
       this.setState({ currentUserID });
     } catch (e) {
       console.log(e); //tslint:disable-line
     }
-    const grabbings = await getGrabbings();
     const filledGrabbings = grabbings.map(async grab => {
       grab.comments = await getGrabbingComments(grab.ID);
       return grab;
     });
     Promise.all(filledGrabbings)
       .then(results => this.setState({ grabbings: arrayToObject(results) }));
+
+    const wpjson = await getPageTextContent();
+    this.setState({ mainPageContent: wpjson[0].content.rendered })
   }
 
   async refreshGrabbings() {

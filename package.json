@@ -6,6 +6,8 @@
     "start": "webpack-dev-server --mode development",
     "dev": "webpack --mode=development",
     "build": "webpack",
+    "deploy-local": "npm run build && cp dist/bundle.js ~/code/suur-inkubio/assets/bundles/kahmy.js",
+    "deploy-remote": "npm run build && scp dist/bundle.js inkubio@otax.fi:~/www-data/wp-content/themes/suurinkubio/assets/bundles/kahmy.js",
     "stats": "webpack --json > stats.json"
   },
   "dependencies": {

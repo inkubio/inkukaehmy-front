@@ -10,7 +10,10 @@ export const MainPage = () => (
   <StoreConsumer>
     {(store: IAppState) => (
       <React.Fragment>
-        <MainContent loggedIn={store.currentUserID > 0} />
+        <MainContent
+          text={store.mainPageContent}
+          loggedIn={store.currentUserID > 0}
+        />
         <GrabbingFeed grabs={objectToArray(store.grabbings)} />
       </React.Fragment>
     )}
