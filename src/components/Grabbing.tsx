@@ -54,11 +54,15 @@ export class Grabbing extends React.Component<IGrabbingProps, IGrabbingState> {
             }
             <TextContent>{this.props.text}</TextContent>
             <div style={{marginTop: '2rem'}}>
-              <CommentForm
-                dropdownText="Kommentoi"
-                parentGrabbingID={this.props.ID}
-                refreshCallback={this.props.refreshCallback}
-              />
+              {this.props.currentUserID > 0 ?
+                <CommentForm
+                  dropdownText="Kommentoi"
+                  parentGrabbingID={this.props.ID}
+                  refreshCallback={this.props.refreshCallback}
+                />
+              :
+                <i>Kirjaudu sisään kommentoidaksesi!</i>
+              }
             </div>
           </>
         )}

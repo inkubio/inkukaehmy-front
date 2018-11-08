@@ -1,6 +1,8 @@
 import { IComment, IGrabbing } from './types';
 
-const API_URL = 'http://localhost/wp-json/inku-kaehmy/v1';
+// const API_BASE = 'https://www.inkubio.fi';
+const API_BASE = 'http://localhost';
+const API_URL = `${API_BASE}/wp-json/inku-kaehmy/v1`;
 
 /*
  * Abstract methods

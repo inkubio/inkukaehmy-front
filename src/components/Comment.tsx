@@ -51,13 +51,15 @@ export class Comment extends React.Component<ICommentProps, ICommentState> {
             <TextContent>{this.props.text}</TextContent>
           </>
         )}
-        <CommentForm
-          dropdownText="Vastaa"
-          parentGrabbingID={this.props.grabbing_ID}
-          parentCommentID={this.props.ID}
-          refreshCallback={this.props.refreshCallback}
-          reply
-        />
+        {this.props.currentUserID > 0 &&
+          <CommentForm
+            dropdownText="Vastaa"
+            parentGrabbingID={this.props.grabbing_ID}
+            parentCommentID={this.props.ID}
+            refreshCallback={this.props.refreshCallback}
+            reply
+          />
+        }
         {this.props.comments.map(subcomment =>
           <SubComment
             key={subcomment.ID}
@@ -106,13 +108,15 @@ class SubComment extends React.Component<ICommentProps, ICommentState> {
             <TextContent>{this.props.text}</TextContent>
           </>
         )}
-        <CommentForm
-          dropdownText="Vastaa"
-          parentGrabbingID={this.props.grabbing_ID}
-          parentCommentID={this.props.ID}
-          refreshCallback={this.props.refreshCallback}
-          reply
-        />
+        {this.props.currentUserID > 0 &&
+          <CommentForm
+            dropdownText="Vastaa"
+            parentGrabbingID={this.props.grabbing_ID}
+            parentCommentID={this.props.ID}
+            refreshCallback={this.props.refreshCallback}
+            reply
+          />
+        }
         {this.props.comments.map(subcomment =>
           <SubComment
             key={subcomment.ID}

@@ -5,7 +5,7 @@ import { ContentContainer } from '../components/ContentContainer';
 import { TextContent } from '../components/TextContent';
 import { PageTitle } from '../components/Title';
 
-export const MainContent = () => (
+export const MainContent: React.SFC<{loggedIn: boolean}> = (loggedIn) => (
   <ContentContainer>
     <PageTitle>Kähmyä pls</PageTitle>
     <TextContent>
@@ -20,8 +20,14 @@ export const MainContent = () => (
       Ipsum.
     </TextContent>
     <div style={{marginTop: '2rem'}}>
-      <ButtonPillLink text="Uusi kähmy!" to="?page=form" primary />
-      <ButtonPillLink text="Selaa kähmyjä" to="?page=grabbings" />
+      {!loggedIn ?
+        <>
+          <ButtonPillLink text="Uusi kähmy!" to="?page=form" primary />
+          <ButtonPillLink text="Selaa kähmyjä" to="?page=grabbings" />
+        </>
+      :
+        <i>Kirjaudu sisään kähmytäksesi!</i>
+      }
     </div>
   </ContentContainer>
 );
