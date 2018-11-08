@@ -76,6 +76,13 @@ export const objectToArray: IObjectToArray = (obj: any) => {
   return Object.keys(obj).map((key: any) => obj[key]);
 };
 
+export const flattenComments = (comments: IComment[]): IComment[] => {
+  return comments.concat(comments
+    .map(comment => flattenComments(comment.comments))
+    .reduce((acc, curr) => acc.concat(curr), [])
+  );
+};
+
 // Request functions
 // GETs
 export const getGrabbings = (): IGrabbing[] => {

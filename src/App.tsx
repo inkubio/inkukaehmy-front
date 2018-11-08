@@ -1,6 +1,11 @@
 import * as React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { arrayToObject, getCurrentUserId, getGrabbings } from './functions';
+import {
+  arrayToObject,
+  getCurrentUserId,
+  getGrabbingComments,
+  getGrabbings,
+} from './functions';
 import { IAppState } from './types';
 
 import { FormPage } from './pages/FormPage';
@@ -45,10 +50,19 @@ export default class App extends React.Component<{}, IAppState> {
   }
 
   async componentDidMount() {
+    try {
+      const currentUserID = await getCurrentUserId();
+      this.setState({ currentUserID });
+    } catch (e) {
+      console.log(e); //tslint:disable-line
+    }
     const grabbings = await getGrabbings();
-    this.setState({ grabbings: arrayToObject(grabbings) });
-    const currentUserID = await getCurrentUserId();
-    this.setState({ currentUserID });
+    const filledGrabbings = grabbings.map(async grab => {
+      grab.comments = await getGrabbingComments(grab.ID);
+      return grab;
+    });
+    Promise.all(filledGrabbings)
+      .then(results => this.setState({ grabbings: arrayToObject(results) }));
   }
 
   async refreshGrabbings() {

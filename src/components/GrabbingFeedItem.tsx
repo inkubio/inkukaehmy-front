@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { flattenComments } from '../functions';
 import { IGrabbing } from '../types';
 
 import { ContentContainer } from '../components/ContentContainer';
@@ -10,6 +11,9 @@ import { Title } from './Title';
 
 export const GrabbingFeedItem = (props: IGrabbing) => (
   <ContentContainer>
+    <i style={{fontSize: '0.8rem'}}>
+      {props.is_hallitus ? 'Hallituskähmy:' : 'Toimarikähmy:'}
+    </i>
     <Title>{props.title}</Title>
     <Author>{props.username}</Author>
     <Timestamp>{props.timestamp}</Timestamp>
@@ -17,5 +21,13 @@ export const GrabbingFeedItem = (props: IGrabbing) => (
       {props.text.substring(0, props.text.indexOf('</p>'))}
     </TextContent>
     <ButtonArrowLink text="Katso lisää" to={`?page=grabbing&id=${props.ID}`} />
+    {props.comments &&
+      <span style={{float: 'right'}}>
+        {flattenComments(props.comments).length === 1
+          ? '1 kommentti'
+          : `${flattenComments(props.comments).length} kommenttia`
+        }
+      </span>
+    }
   </ContentContainer>
 );

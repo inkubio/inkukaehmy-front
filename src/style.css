@@ -23,6 +23,10 @@
   margin: 0 0 1.5rem 0;
 }
 
+#kahmy h2 {
+  margin-top: 0;
+}
+
 #kahmy h3 {
   margin-left: 0;
   padding-left: 0;
@@ -152,7 +156,9 @@
 }
 
 .filled:hover,
-.filled:focus {
+.filled:focus,
+#kahmy a.filled:hover,
+#kahmy a.filled:focus {
   color: var(--WHITE);
   background-color: var(--GREEN-LIGHT);
 }
