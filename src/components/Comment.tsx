@@ -3,7 +3,7 @@ import { IComment } from '../types';
 
 import { Author } from './Author';
 import { CommentForm } from './CommentForm';
-import { CommentFormEdit } from '../components/CommentFormEdit';
+import { CommentFormEdit } from './CommentFormEdit';
 import { TextContent } from './TextContent';
 import { Timestamp } from './Timestamp';
 
