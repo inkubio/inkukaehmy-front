@@ -35,7 +35,9 @@ export class Grabbing extends React.Component<IGrabbingProps, IGrabbingState> {
 
   render() {
     return (
-      <ContentContainer>
+      <ContentContainer
+        style={{borderLeft: `0.5rem solid ${this.props.is_hallitus ? 'var(--GREEN)' : '#c0c0c0'}`}}
+      >
         {this.state.editing ? (
           <GrabbingFormEdit
             {...this.props}
