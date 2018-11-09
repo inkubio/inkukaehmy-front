@@ -52,22 +52,23 @@ export default class App extends React.Component<{}, IAppState> {
   }
 
   async componentDidMount() {
-    const grabbings = await getGrabbings();
+    const wpjson = await getPageTextContent();
+    this.setState({ mainPageContent: wpjson[0].content.rendered })
+
     try {
       const currentUserID = await getCurrentUserId();
       this.setState({ currentUserID });
     } catch (e) {
       console.log(e); //tslint:disable-line
     }
+
+    const grabbings = await getGrabbings();
     const filledGrabbings = grabbings.map(async grab => {
       grab.comments = await getGrabbingComments(grab.ID);
       return grab;
     });
     Promise.all(filledGrabbings)
       .then(results => this.setState({ grabbings: arrayToObject(results) }));
-
-    const wpjson = await getPageTextContent();
-    this.setState({ mainPageContent: wpjson[0].content.rendered })
   }
 
   async refreshGrabbings() {

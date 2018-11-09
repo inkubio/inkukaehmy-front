@@ -10,7 +10,9 @@ import { Timestamp } from './Timestamp';
 import { Title } from './Title';
 
 export const GrabbingFeedItem = (props: IGrabbing) => (
-  <ContentContainer>
+  <ContentContainer
+    style={{borderLeft: `0.5rem solid var(--GREEN${!props.is_hallitus ? '-LIGHT' : ''})`}}
+  >
     <i style={{fontSize: '0.8rem'}}>
       {props.is_hallitus ? 'Hallituskähmy:' : 'Toimarikähmy:'}
     </i>

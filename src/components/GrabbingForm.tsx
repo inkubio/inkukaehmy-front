@@ -106,7 +106,9 @@ export class GrabbingForm extends React.Component<{}, IGrabbingFormState> {
             init={{
               entity_encoding: 'raw',
               height: '200',
+              images_upload_url: 'https://www.inkubio.fi/kahmyt/imgupload.php',
               menubar: 'edit insert format view',
+              paste_data_images: true,
               plugins: 'link image code preview',
               toolbar:
                 'undo redo | bold italic | alignleft aligncenter alignright | ' +
