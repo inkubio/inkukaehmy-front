@@ -27,6 +27,7 @@ export const ButtonPillLink = (props: IButtonPillLinkProps) => (
   <Link
     className={'link-pill' + (props.primary ? ' filled' : '')}
     to={props.to}
+    onClick={() => window.scrollTo(0, 0)}
   >
     {props.text}
   </Link>
