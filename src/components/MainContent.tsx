@@ -7,7 +7,7 @@ import { PageTitle } from '../components/Title';
 
 export const MainContent = (props: {loggedIn: boolean, text: string}) => (
   <ContentContainer>
-    <PageTitle>Kähmyä pls</PageTitle>
+    <PageTitle>Kähmyt vuodelle 2019</PageTitle>
     <TextContent>
       {props.text}
     </TextContent>
@@ -15,7 +15,6 @@ export const MainContent = (props: {loggedIn: boolean, text: string}) => (
       {props.loggedIn ?
         <>
           <ButtonPillLink text="Uusi kähmy!" to="?page=form" primary />
-          <ButtonPillLink text="Selaa kähmyjä" to="?page=grabbings" />
         </>
       :
         <i>Kirjaudu sisään kähmytäksesi!</i>

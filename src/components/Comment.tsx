@@ -15,6 +15,7 @@ interface ICommentProps extends IComment {
 
 interface ICommentState {
   editing: boolean;
+  highlighted: boolean;
 }
 
 export class Comment extends React.Component<ICommentProps, ICommentState> {
@@ -22,6 +23,7 @@ export class Comment extends React.Component<ICommentProps, ICommentState> {
     super(props);
     this.state = {
       editing: false,
+      highlighted: window.location.hash.substring(1) === this.props.ID.toString(),
     }
     this.toggle = this.toggle.bind(this);
   }
@@ -30,9 +32,15 @@ export class Comment extends React.Component<ICommentProps, ICommentState> {
     this.setState({editing: !this.state.editing});
   }
 
+  componentWillMount() {
+    setTimeout(() => this.setState({highlighted: false}), 1000);
+  }
+
   render() {
     return (
-      <div className="comment">
+      <div
+        className={'comment' + (this.state.highlighted ? ' highlight' : '')}
+      >
         <Author>{this.props.username}</Author>
         <Timestamp>{this.props.timestamp}</Timestamp>
         {this.state.editing ? (
@@ -79,6 +87,7 @@ class SubComment extends React.Component<ICommentProps, ICommentState> {
     super(props);
     this.state = {
       editing: false,
+      highlighted: window.location.hash.substring(1) === this.props.ID.toString(),
     }
     this.toggle = this.toggle.bind(this);
   }
@@ -87,9 +96,15 @@ class SubComment extends React.Component<ICommentProps, ICommentState> {
     this.setState({editing: !this.state.editing});
   }
 
+  componentWillMount() {
+    setTimeout(() => this.setState({highlighted: false}), 1000);
+  }
+
   render(): any {
     return (
-      <div className="subcomment">
+      <div
+        className={'subcomment' + (this.state.highlighted ? ' highlight' : '')}
+      >
         <Author>{this.props.username}</Author>
         <Timestamp>{this.props.timestamp}</Timestamp>
         {this.state.editing ? (

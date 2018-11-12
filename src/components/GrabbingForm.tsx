@@ -69,7 +69,7 @@ export class GrabbingForm extends React.Component<{}, IGrabbingFormState> {
     return (
       <form>
         <div className="form-group">
-          <label>Otsikko:</label>
+          <label><strong>Otsikko:</strong> <i>(esim. haettava virka)</i></label>
           <input
             className="title-input"
             type="text"
@@ -80,7 +80,7 @@ export class GrabbingForm extends React.Component<{}, IGrabbingFormState> {
         </div>
 
         <div className="form-group">
-          <label className="toggle-label">Haen:</label>
+          <label className="toggle-label"><strong>Haen:</strong></label>
           <div className="toggle">
             <input
               id="official"
@@ -100,9 +100,10 @@ export class GrabbingForm extends React.Component<{}, IGrabbingFormState> {
         </div>
 
         <div className="form-group">
-          <label>Leipäteksti:</label>
+          <label><strong>Leipäteksti:</strong> <i>(kerro mitä ja miksi, ja vaikka hieman itsestäsi!)</i></label>
           <Editor
             value={this.state.text}
+
             init={{
               entity_encoding: 'raw',
               height: '200',
