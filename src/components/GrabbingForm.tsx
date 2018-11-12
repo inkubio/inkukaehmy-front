@@ -59,10 +59,14 @@ export class GrabbingForm extends React.Component<{}, IGrabbingFormState> {
       batch: '2018',
       tags: [],
     };
-    if (postGrabbing(data)) {
+    const resp = postGrabbing(data);
+    console.log(resp); // tslint:disable-line
+    if (resp) {
       window.location = '/kiltalaisille/hallinto/kahmyt/' as any;
+    } else {
+      alert("nyt kävi hassusti, laita TGssä viestiä @jonesus");
+      console.log(resp); // tslint:disable-line
     }
-    console.log(data); // tslint:disable-line
   }
 
   render() {

@@ -45,7 +45,14 @@ const _POST = (endpoint: string, data: any): any => {
     },
     method: 'POST',
   })
-    .then(resp => resp.json())
+    .then(resp => {
+      if (resp.ok) {
+        return resp.json()
+      } else {
+        alert(resp.json());
+        return undefined;
+      }
+    })
     .catch(e => {console.error(e); return false}); // tslint:disable-line no-console
 };
 
