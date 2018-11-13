@@ -41,7 +41,9 @@ export class GrabbingFeedItem extends React.Component<IGrabbing, IFeedItemState>
           {this.state.expanded
             ? this.props.text
             : this.props.text.substring(0, this.props.text.indexOf('</p>')) + 
-              '<div style="margin-top: -0.5em;">...</div>'}
+              (this.props.text.length - 4 !== this.props.text.indexOf('</p>')
+                ? '<div style="margin-top: -0.5em;">...</div>'
+                : '')}
         </TextContent>
         {this.props.text.length - 4 !== this.props.text.indexOf('</p>') &&
           <a
