@@ -125,6 +125,9 @@ export class GrabbingForm extends React.Component<{}, IGrabbingFormState> {
 
         <div className="form-group">
           <ButtonPill callback={this.submit} text="Kähmyä!" primary/>
+          <div style={{marginTop: '1rem', fontSize: '0.8rem;'}}>
+            <i>Huom! Ei välttämättä toimi Safarilla!</i>
+          </div>
         </div>
       </form>
     );
