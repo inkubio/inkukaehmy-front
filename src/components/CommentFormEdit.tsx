@@ -1,88 +1,52 @@
-import * as React from 'react';
-
-import { Editor } from '@tinymce/tinymce-react';
-import 'tinymce';
-import 'tinymce/plugins/code';
-import 'tinymce/plugins/image';
-import 'tinymce/plugins/link';
-import 'tinymce/plugins/paste';
-import 'tinymce/plugins/preview';
-import 'tinymce/themes/modern/theme';
-
+import React, { useState } from 'react';
+import { TextArea } from 'src/components/TextArea';
 import { IComment } from 'src/types';
-import { putComment } from '../functions';
-import { ButtonPill } from './ButtonPill';
+import { putComment } from 'src/functions';
+import { ButtonPill } from 'src/components/ButtonPill';
 
-interface ICommentFormProps extends IComment{
+interface ICommentFormProps extends IComment {
   hideCallback: () => void;
-  refreshCallback: () => any;
-  reply?: boolean;
+  refreshCallback: () => void;
 }
 
-interface ICommentFormState {
-  text: string;
-}
+export const CommentFormEdit: React.SFC<ICommentFormProps> = ({
+  hideCallback,
+  refreshCallback,
+  text,
+  ID,
+}) => {
+  const [textState, setText] = useState(text);
 
-export class CommentFormEdit extends React.Component<ICommentFormProps, ICommentFormState> {
-  constructor(props: ICommentFormProps) {
-    super(props);
-    this.state = {
-      text: props.text,
-    };
-
-    this.handleTextChange = this.handleTextChange.bind(this);
-    this.submit = this.submit.bind(this);
-    this.cancel = this.cancel.bind(this);
-  }
-
-  handleTextChange(content: string) {
-    this.setState({text: content})
-  }
-
-  cancel(event: any) {
+  const cancel = async (event: React.FormEvent<HTMLInputElement>) => {
     event.preventDefault();
-    this.props.hideCallback();
-  }
+    hideCallback();
+  };
 
-  async submit(event: any) {
+  const submit = async (event: React.FormEvent<HTMLInputElement>) => {
     event.preventDefault();
     const data = {
-      text: this.state.text,
+      text: textState,
     };
-    if ((await putComment(data, this.props.ID)) !== false) {
-      this.props.refreshCallback();
-      this.props.hideCallback();
+    if ((await putComment(data, ID)) !== false) {
+      refreshCallback();
+      hideCallback();
     } else {
-      alert('opi koodaa');
+      alert('opi koodaa'); // eslint-disable-line
     }
-  }
+  };
 
-  render() {
-    return (
-      <form>
-        <div className="form-group">
-          <label style={{lineHeight: '2rem'}}>Muokkaa kommenttia:</label>
-          <Editor
-            value={this.state.text}
-            init={{
-              entity_encoding: 'raw',
-              height: '200',
-              images_upload_url: 'https://www.inkubio.fi/kahmyt/imgupload.php',
-              menubar: 'edit insert format view',
-              paste_data_images: true,
-              plugins: 'link image code preview',
-              toolbar:
-                'undo redo | bold italic | alignleft aligncenter alignright | ' +
-                '| bullist numlist outdent indent | link image | preview code'
-            }}
-            onEditorChange={this.handleTextChange}
-          />
-        </div>
-        <div className="form-group">
-          <ButtonPill callback={this.submit} text="Muuta" primary />
-          <ButtonPill callback={this.cancel} text="Peruuta"/>
-        </div>
-      </form>
-    );
-  }
-}
+  return (
+    <form>
+      <div className="form-group">
+        <label htmlFor="textarea" style={{ lineHeight: '2rem' }}>
+          Muokkaa kommenttia:
+          <TextArea id="textarea" text={text} onChange={setText} />
+        </label>
+      </div>
+      <div className="form-group">
+        <ButtonPill callback={submit} text="Muuta" primary />
+        <ButtonPill callback={cancel} text="Peruuta" />
+      </div>
+    </form>
+  );
+};

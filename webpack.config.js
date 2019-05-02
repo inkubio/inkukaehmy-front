@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: './src/index.tsx',
@@ -24,6 +25,7 @@ module.exports = {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
       },
+      { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' },
     ],
   },
   devServer: {
@@ -34,9 +36,17 @@ module.exports = {
       template: './src/index.html',
       filename: './index.html',
     }),
+    new CopyWebpackPlugin([
+      { from: './node_modules/tinymce/plugins', to: './plugins' },
+      { from: './node_modules/tinymce/themes', to: './themes' },
+      { from: './node_modules/tinymce/skins', to: './skins' },
+    ]),
   ],
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
+    alias: {
+      src: path.resolve(__dirname, './src'),
+    },
   },
   output: {
     filename: 'bundle.js',

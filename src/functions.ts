@@ -1,14 +1,14 @@
 import { IComment, IGrabbing } from './types';
 
-const API_BASE = 'https://www.inkubio.fi';
-// const API_BASE = 'http://localhost';
+// const API_BASE = 'https://www.inkubio.fi';
+const API_BASE = 'http://localhost';
 const API_URL = `${API_BASE}/wp-json/inku-kaehmy/v1`;
 const CONTENT_URL = `${API_BASE}/wp-json/wp/v2/pages/?slug=kähmyt`;
 
 /*
  * Abstract methods
  */
-const _GET = (endpoint: string): any => {
+const GET = (endpoint: string): any => {
   return fetch(`${API_URL}${endpoint}`, {
     credentials: 'same-origin',
     headers: {
@@ -21,7 +21,7 @@ const _GET = (endpoint: string): any => {
     .catch(e => console.error(e)); // tslint:disable-line no-console
 };
 
-const _GETCONT = (endpoint: string): any => {
+const GETCONT = (endpoint: string): any => {
   return fetch(`${CONTENT_URL}${endpoint}`, {
     credentials: 'same-origin',
     headers: {
@@ -34,7 +34,7 @@ const _GETCONT = (endpoint: string): any => {
     .catch(e => console.error(e)); // tslint:disable-line no-console
 };
 
-const _POST = (endpoint: string, data: any): any => {
+const POST = (endpoint: string, data: any): any => {
   return fetch(`${API_URL}${endpoint}`, {
     body: JSON.stringify(data),
     credentials: 'same-origin',
@@ -47,16 +47,18 @@ const _POST = (endpoint: string, data: any): any => {
   })
     .then(resp => {
       if (resp.ok) {
-        return resp.json()
-      } else {
-        alert(resp.json());
-        return undefined;
+        return resp.json();
       }
+      alert(resp.json());
+      return false;
     })
-    .catch(e => {console.error(e); return false}); // tslint:disable-line no-console
+    .catch(e => {
+      console.error(e);
+      return false;
+    }); // tslint:disable-line no-console
 };
 
-const _PUT = (endpoint: string, data: any): any => {
+const PUT = (endpoint: string, data: any): any => {
   return fetch(`${API_URL}${endpoint}`, {
     body: JSON.stringify(data),
     credentials: 'same-origin',
@@ -68,8 +70,11 @@ const _PUT = (endpoint: string, data: any): any => {
     method: 'PUT',
   })
     .then(resp => resp.json())
-    .catch(e => {console.error(e); return false}); // tslint:disable-line no-console
-}
+    .catch(e => {
+      console.error(e);
+      return false;
+    }); // tslint:disable-line no-console
+};
 
 /*
  * Exports
@@ -79,7 +84,7 @@ const _PUT = (endpoint: string, data: any): any => {
 interface IArrayToObject {
   (array: IGrabbing[]): { [key: number]: IGrabbing };
   (array: IComment[]): { [key: number]: IComment };
-};
+}
 
 export const arrayToObject: IArrayToObject = (array: any[]) =>
   array.reduce((obj: any, item: any) => {
@@ -91,62 +96,65 @@ export const arrayToObject: IArrayToObject = (array: any[]) =>
 interface IObjectToArray {
   (obj: { [key: number]: IGrabbing }): IGrabbing[];
   (obj: { [key: number]: IComment }): IComment[];
-};
+}
 
 export const objectToArray: IObjectToArray = (obj: any) => {
   return Object.keys(obj).map((key: any) => obj[key]);
 };
 
 export const flattenComments = (comments: IComment[]): IComment[] => {
-  return comments.concat(comments
-    .map(comment => flattenComments(comment.comments))
-    .reduce((acc, curr) => acc.concat(curr), [])
+  return comments.concat(
+    comments
+      .map(comment => flattenComments(comment.comments))
+      .reduce((acc, curr) => acc.concat(curr), []),
   );
 };
 
 // Request functions
 // GETs
 export const getGrabbings = (): IGrabbing[] => {
-  return _GET('/grabbings');
+  return GET('/grabbings');
 };
 
 export const getGrabbing = (id: number): IGrabbing => {
-  return _GET(`/grabbing/${id}`);
+  return GET(`/grabbing/${id}`);
 };
 
 export const getGrabbingComments = (id: number): IComment[] => {
-  return _GET(`/grabbing/${id}/comments`);
+  return GET(`/grabbing/${id}/comments`);
 };
 
 export const getPageTextContent = () => {
-  return _GETCONT('');
-}
+  return GETCONT('');
+};
 
 // POSTs
 export const getCurrentUserId = (): number => {
-  return _POST('/me', {});
+  return POST('/me', {});
 };
 
-export const postGrabbing = (payload: Pick<IGrabbing,
-    'title' | 'text' | 'tags' | 'is_hallitus' | 'batch'
->) => {
-  return _POST('/grabbings', payload);
-};
-
-export const postComment = (payload:
-  {text: string, parent_grabbing_id: number, parent_comment_id?: number}
+export const postGrabbing = (
+  payload: Pick<IGrabbing, 'title' | 'text' | 'tags' | 'is_hallitus' | 'batch'>,
 ) => {
-  return _POST('/comments', payload);
+  return POST('/grabbings', payload);
+};
+
+export const postComment = (payload: {
+  text: string;
+  parent_grabbing_id: number;
+  parent_comment_id?: number;
+}) => {
+  return POST('/comments', payload);
 };
 
 // PUTs
 export const putGrabbing = (
   payload: Pick<IGrabbing, 'title' | 'text' | 'tags' | 'is_hallitus'>,
-  grabbingID: number,  
+  grabbingID: number,
 ) => {
-  return _PUT(`/grabbing/${grabbingID}`, payload);
+  return PUT(`/grabbing/${grabbingID}`, payload);
 };
 
-export const putComment = (payload: {text: string}, commentID: number) => {
-  return _PUT(`/comment/${commentID}`, payload);
+export const putComment = (payload: { text: string }, commentID: number) => {
+  return PUT(`/comment/${commentID}`, payload);
 };

@@ -6,7 +6,7 @@ import {
   getGrabbingComments,
   getGrabbings,
   getPageTextContent,
-} from './functions'
+} from './functions';
 
 import { IAppState } from './types';
 
@@ -28,10 +28,12 @@ const QueryRouter = (props: any): any => {
   const page = params.get('page');
   if (page === 'form') {
     return <FormPage />;
-  } else if (page === 'grabbings') {
-    return <GrabbingPage props={props} />
-  } else if (page === 'grabbing') {
-    return <GrabbingPage id={params.get('id')} />
+  }
+  if (page === 'grabbings') {
+    return <GrabbingPage props={props} />;
+  }
+  if (page === 'grabbing') {
+    return <GrabbingPage id={params.get('id')} />;
   }
   return <MainPage />;
 };
@@ -53,22 +55,31 @@ export default class App extends React.Component<{}, IAppState> {
 
   async componentDidMount() {
     const wpjson = await getPageTextContent();
-    this.setState({ mainPageContent: wpjson[0].content.rendered })
+    this.setState({ mainPageContent: wpjson[0].content.rendered });
 
     try {
       const currentUserID = await getCurrentUserId();
       this.setState({ currentUserID });
     } catch (e) {
-      console.log(e); //tslint:disable-line
+      console.log(e); // tslint:disable-line
     }
 
     const grabbings = await getGrabbings();
+    this.setState({
+      grabbings: arrayToObject(
+        grabbings.map(grab => {
+          grab.comments = [];
+          return grab;
+        }),
+      ),
+    });
     const filledGrabbings = grabbings.map(async grab => {
       grab.comments = await getGrabbingComments(grab.ID);
       return grab;
     });
-    Promise.all(filledGrabbings)
-      .then(results => this.setState({ grabbings: arrayToObject(results) }));
+    Promise.all(filledGrabbings).then(results =>
+      this.setState({ grabbings: arrayToObject(results) }),
+    );
   }
 
   async refreshGrabbings() {
