@@ -38,30 +38,31 @@ const grabSearch = (query: string) => (grab: IGrabbing) => {
 };
 
 // Sort by either newest or oldest grabbings first
-const grabSort = (sortBy: Sortable) =>
-  sortBy === 'newest'
-    ? (a: IGrabbing, b: IGrabbing) => {
-        if (a.timestamp < b.timestamp) {
-          return 1;
-        }
-        if (b.timestamp < a.timestamp) {
-          return -1;
-        }
-        return 0;
+const grabSort = (sortBy: Sortable) => {
+  if (sortBy === 'newest') {
+    return (a: IGrabbing, b: IGrabbing) => {
+      if (a.timestamp < b.timestamp) {
+        return 1;
       }
-    : (a: IGrabbing, b: IGrabbing) => {
-        if (a.timestamp > b.timestamp) {
-          return 1;
-        }
-        if (b.timestamp > a.timestamp) {
-          return -1;
-        }
-
-        return 0;
-      };
+      if (b.timestamp < a.timestamp) {
+        return -1;
+      }
+      return 0;
+    };
+  }
+  return (a: IGrabbing, b: IGrabbing) => {
+    if (a.timestamp > b.timestamp) {
+      return 1;
+    }
+    if (b.timestamp > a.timestamp) {
+      return -1;
+    }
+    return 0;
+  };
+};
 
 export class GrabbingFeed extends React.Component<{ grabs: IGrabbing[] }, IGrabbingFeedState> {
-  constructor(props: any) {
+  constructor(props: { grabs: IGrabbing[] }) {
     super(props);
     this.state = {
       filterBy: 'all',
@@ -76,16 +77,16 @@ export class GrabbingFeed extends React.Component<{ grabs: IGrabbing[] }, IGrabb
     this.onChangeSearch = this.onChangeSearch.bind(this);
   }
 
-  onChangeSearch(e: any) {
-    this.setState({ filterText: e.target.value });
+  onChangeSearch(e: React.FormEvent<HTMLInputElement>) {
+    this.setState({ filterText: e.currentTarget.value });
   }
 
-  onChangeVisibility(e: any) {
-    this.setState({ [e.target.name]: e.target.value } as any);
+  onChangeVisibility(e: React.ChangeEvent<HTMLSelectElement>) {
+    this.setState({ [e.currentTarget.name]: e.currentTarget.value } as any);
   }
 
-  async onChangeFilter(e: any) {
-    await this.setState({ [e.target.name]: e.target.checked } as any);
+  async onChangeFilter(e: React.FormEvent<HTMLInputElement>) {
+    await this.setState({ [e.currentTarget.name]: e.currentTarget.checked } as any);
     if (this.state.showBoard && this.state.showOfficials) {
       this.setState({ filterBy: 'all' });
     } else if (this.state.showBoard && !this.state.showOfficials) {
@@ -103,15 +104,23 @@ export class GrabbingFeed extends React.Component<{ grabs: IGrabbing[] }, IGrabb
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <ContentContainer style={{ display: 'flex', flexWrap: 'wrap', borderRadius: '2rem' }}>
             <div className="feed-control">
-              <label className="toggle-label">Lajittele</label>
-              <select name="sortBy" onChange={this.onChangeVisibility}>
-                <option value="newest">Uusin ensin</option>
-                <option value="oldest">Vanhin ensin</option>
-              </select>
+              <label className="toggle-label">
+                Lajittele
+                <select
+                  style={{ display: 'block' }}
+                  name="sortBy"
+                  onChange={this.onChangeVisibility}
+                >
+                  <option value="newest">Uusin ensin</option>
+                  <option value="oldest">Vanhin ensin</option>
+                </select>
+              </label>
             </div>
 
             <div className="feed-control">
-              <label className="toggle-label">Näkyvät kähmyt</label>
+              <label htmlFor="official" className="toggle-label">
+                Näkyvät kähmyt
+              </label>
               <div className="toggle">
                 <input
                   id="official"
@@ -137,8 +146,14 @@ export class GrabbingFeed extends React.Component<{ grabs: IGrabbing[] }, IGrabb
             </div>
 
             <div className="feed-control">
-              <label className="toggle-label">Hae tekstillä</label>
-              <input value={this.state.filterText} onChange={this.onChangeSearch} />
+              <label className="toggle-label">
+                Hae tekstillä
+                <input
+                  style={{ display: 'block' }}
+                  value={this.state.filterText}
+                  onChange={this.onChangeSearch}
+                />
+              </label>
             </div>
           </ContentContainer>
         </div>

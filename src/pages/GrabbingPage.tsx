@@ -1,26 +1,24 @@
 import * as React from 'react';
-import { StoreConsumer } from '../App';
-import { IAppState, IComment, IGrabbing } from '../types';
+import { StoreConsumer } from 'src/App';
+import { IAppState, IComment, IGrabbing } from 'src/types';
 
-import { Comment } from '../components/Comment';
-import { ContentContainer } from '../components/ContentContainer';
-import { Grabbing } from '../components/Grabbing';
-import { getGrabbingComments } from '../functions';
+import { Comment } from 'src/components/Comment';
+import { ContentContainer } from 'src/components/ContentContainer';
+import { Grabbing } from 'src/components/Grabbing';
+import { getGrabbingComments } from 'src/functions';
+import { RouteProps } from 'react-router-dom';
 
 interface IGrabbingPageState {
   grabbing: IGrabbing | null;
   comments: IComment[];
 }
 
-interface IGrabbingPageProps {
-  props: { id: number };
+interface IGrabbingPageProps extends RouteProps {
+  id?: number;
 }
 
-export class GrabbingPage extends React.Component<
-  IGrabbingPageProps & any,
-  IGrabbingPageState
-> {
-  id: number = this.props.id;
+export class GrabbingPage extends React.Component<IGrabbingPageProps, IGrabbingPageState> {
+  id = this.props.id || -1;
 
   constructor(props: IGrabbingPageProps) {
     super(props);
@@ -54,8 +52,8 @@ export class GrabbingPage extends React.Component<
                 currentUserID={store.currentUserID}
               />
             )}
-            
-            {this.state.comments.length !== 0 &&
+
+            {this.state.comments.length !== 0 && (
               <ContentContainer>
                 <h3>Kommentit</h3>
                 {this.state.comments.map(comment => (
@@ -64,10 +62,11 @@ export class GrabbingPage extends React.Component<
                     grabbing_ID={this.id}
                     refreshCallback={() => this.refreshComments()}
                     currentUserID={store.currentUserID}
-                    {...comment} />
+                    {...comment}
+                  />
                 ))}
               </ContentContainer>
-            }
+            )}
           </React.Fragment>
         )}
       </StoreConsumer>

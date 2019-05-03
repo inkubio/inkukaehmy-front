@@ -8,7 +8,7 @@ const CONTENT_URL = `${API_BASE}/wp-json/wp/v2/pages/?slug=kähmyt`;
 /*
  * Abstract methods
  */
-const GET = (endpoint: string): any => {
+const GET = (endpoint: string): Promise<unknown> => {
   return fetch(`${API_URL}${endpoint}`, {
     credentials: 'same-origin',
     headers: {
@@ -21,7 +21,7 @@ const GET = (endpoint: string): any => {
     .catch(e => console.error(e)); // tslint:disable-line no-console
 };
 
-const GETCONT = (endpoint: string): any => {
+const GETCONT = (endpoint: string): Promise<unknown> => {
   return fetch(`${CONTENT_URL}${endpoint}`, {
     credentials: 'same-origin',
     headers: {
@@ -34,7 +34,7 @@ const GETCONT = (endpoint: string): any => {
     .catch(e => console.error(e)); // tslint:disable-line no-console
 };
 
-const POST = (endpoint: string, data: any): any => {
+const POST = (endpoint: string, data: unknown): Promise<unknown> => {
   return fetch(`${API_URL}${endpoint}`, {
     body: JSON.stringify(data),
     credentials: 'same-origin',
@@ -49,16 +49,16 @@ const POST = (endpoint: string, data: any): any => {
       if (resp.ok) {
         return resp.json();
       }
-      alert(resp.json());
+      alert(resp.json()); // eslint-disable-line
       return false;
     })
     .catch(e => {
       console.error(e);
       return false;
-    }); // tslint:disable-line no-console
+    });
 };
 
-const PUT = (endpoint: string, data: any): any => {
+const PUT = (endpoint: string, data: unknown): unknown => {
   return fetch(`${API_URL}${endpoint}`, {
     body: JSON.stringify(data),
     credentials: 'same-origin',
@@ -86,9 +86,9 @@ interface IArrayToObject {
   (array: IComment[]): { [key: number]: IComment };
 }
 
-export const arrayToObject: IArrayToObject = (array: any[]) =>
+export const arrayToObject: IArrayToObject = (array: any) =>
   array.reduce((obj: any, item: any) => {
-    obj[item.ID] = item;
+    obj[item.ID] = item; // eslint-disable-line
     return obj;
   }, {});
 
@@ -112,16 +112,16 @@ export const flattenComments = (comments: IComment[]): IComment[] => {
 
 // Request functions
 // GETs
-export const getGrabbings = (): IGrabbing[] => {
-  return GET('/grabbings');
+export const getGrabbings = (): Promise<IGrabbing[]> => {
+  return GET('/grabbings') as Promise<IGrabbing[]>;
 };
 
-export const getGrabbing = (id: number): IGrabbing => {
-  return GET(`/grabbing/${id}`);
+export const getGrabbing = (id: number): Promise<IGrabbing> => {
+  return GET(`/grabbing/${id}`) as Promise<IGrabbing>;
 };
 
-export const getGrabbingComments = (id: number): IComment[] => {
-  return GET(`/grabbing/${id}/comments`);
+export const getGrabbingComments = (id: number): Promise<IComment[]> => {
+  return GET(`/grabbing/${id}/comments`) as Promise<IComment[]>;
 };
 
 export const getPageTextContent = () => {
@@ -129,8 +129,8 @@ export const getPageTextContent = () => {
 };
 
 // POSTs
-export const getCurrentUserId = (): number => {
-  return POST('/me', {});
+export const getCurrentUserId = (): Promise<number> => {
+  return POST('/me', {}) as Promise<number>;
 };
 
 export const postGrabbing = (

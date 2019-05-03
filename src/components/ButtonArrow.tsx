@@ -5,7 +5,7 @@ interface IButtonArrowLinkProps {
   text: string;
   to: string;
   style?: React.CSSProperties;
-};
+}
 
 export const ButtonArrowLink = (props: IButtonArrowLinkProps) => (
   <Link

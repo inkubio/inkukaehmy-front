@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { ButtonPill } from 'src/components/ButtonPill';
 import { TextArea } from 'src/components/TextArea';
 import { postGrabbing } from 'src/functions';
+import { AppContext } from 'src/App';
+import { IAppState } from 'src/types';
 
 export const GrabbingForm: React.SFC<{}> = () => {
   const [title, setTitle] = useState('');
   const [isBoard, setBoard] = useState(false);
   const [text, setText] = useState('<p>Insert kähmy here!</p>');
+  const { grabbingBatch } = useContext(AppContext) as IAppState;
 
   const updateTitle = (event: React.FormEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -23,7 +26,7 @@ export const GrabbingForm: React.SFC<{}> = () => {
       title,
       text,
       is_hallitus: isBoard,
-      batch: '2018',
+      batch: grabbingBatch,
       tags: [],
     };
     const resp = await postGrabbing(data);
@@ -77,9 +80,6 @@ export const GrabbingForm: React.SFC<{}> = () => {
 
       <div className="form-group">
         <ButtonPill callback={submit} text="Kähmyä!" primary />
-        <div style={{ marginTop: '1rem', fontSize: '0.8rem;' }}>
-          <i>Jos kähmyäminen ei toimi, kokeile Chromella!</i>
-        </div>
       </div>
     </form>
   );

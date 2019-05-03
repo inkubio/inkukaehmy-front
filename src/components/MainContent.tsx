@@ -1,24 +1,28 @@
 import * as React from 'react';
 
-import { ButtonPillLink } from '../components/ButtonPill';
-import { ContentContainer } from '../components/ContentContainer';
-import { TextContent } from '../components/TextContent';
-import { PageTitle } from '../components/Title';
+import { ButtonPillLink } from 'src/components/ButtonPill';
+import { ContentContainer } from 'src/components/ContentContainer';
+import { TextContent } from 'src/components/TextContent';
+import { PageTitle } from 'src/components/Title';
 
-export const MainContent = (props: {loggedIn: boolean, text: string}) => (
+interface IMainContentProps {
+  loggedIn: boolean;
+  title: string;
+  text: string;
+}
+
+export const MainContent: React.SFC<IMainContentProps> = ({ loggedIn, title, text }) => (
   <ContentContainer>
-    <PageTitle>Kähmyt vuodelle 2019</PageTitle>
-    <TextContent>
-      {props.text}
-    </TextContent>
-    <div style={{marginTop: '2rem'}}>
-      {props.loggedIn ?
+    <PageTitle>{title}</PageTitle>
+    <TextContent>{text}</TextContent>
+    <div style={{ marginTop: '2rem' }}>
+      {loggedIn ? (
         <>
           <ButtonPillLink text="Uusi kähmy!" to="?page=form" primary />
         </>
-      :
+      ) : (
         <i>Kirjaudu sisään kähmytäksesi!</i>
-      }
+      )}
     </div>
   </ContentContainer>
 );

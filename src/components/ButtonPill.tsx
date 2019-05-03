@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 interface IButtonPillLinkProps {
   text: string;
@@ -9,14 +9,16 @@ interface IButtonPillLinkProps {
 
 interface IButtonPillProps {
   text: string;
-  callback: (args: any) => any;
+  callback: (
+    event: React.MouseEvent<HTMLButtonElement> | React.FormEvent<HTMLInputElement>,
+  ) => void;
   primary?: boolean;
-
 }
 
 export const ButtonPill = (props: IButtonPillProps) => (
   <button
-    className={'button-pill' + (props.primary ? ' filled' : '')}
+    type="button"
+    className={`button-pill${props.primary ? ' filled' : ''}`}
     onClick={props.callback}
   >
     {props.text}
@@ -25,7 +27,7 @@ export const ButtonPill = (props: IButtonPillProps) => (
 
 export const ButtonPillLink = (props: IButtonPillLinkProps) => (
   <Link
-    className={'link-pill' + (props.primary ? ' filled' : '')}
+    className={`link-pill${props.primary ? ' filled' : ''}`}
     to={props.to}
     onClick={() => window.scrollTo(0, 0)}
   >

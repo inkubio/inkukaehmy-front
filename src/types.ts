@@ -1,7 +1,7 @@
 export interface ITag {
   ID: number;
   name: string;
-};
+}
 
 export interface IGrabbing {
   ID: number;
@@ -14,7 +14,7 @@ export interface IGrabbing {
   is_hallitus: boolean;
   batch: string;
   comments?: IComment[];
-};
+}
 
 export interface IComment {
   ID: number;
@@ -24,7 +24,7 @@ export interface IComment {
   timestamp: string;
   depth: number;
   comments: IComment[];
-};
+}
 
 export type Sortable = 'newest' | 'oldest';
 export type Filterable = 'all' | 'board' | 'official';
@@ -36,4 +36,6 @@ export interface IAppState {
   sortBy: Sortable;
   filterBy: Filterable;
   mainPageContent: string;
-};
+  mainPageTitle: string;
+  grabbingBatch: string;
+}

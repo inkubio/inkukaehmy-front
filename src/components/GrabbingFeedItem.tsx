@@ -1,13 +1,13 @@
 import * as React from 'react';
-import { flattenComments } from '../functions';
-import { IGrabbing } from '../types';
+import { flattenComments } from 'src/functions';
+import { IGrabbing } from 'src/types';
 
-import { ContentContainer } from './ContentContainer';
-import { Author } from './Author';
-import { ButtonArrowLink } from './ButtonArrow';
-import { TextContent } from './TextContent';
-import { Timestamp } from './Timestamp';
-import { Title } from './Title';
+import { ContentContainer } from 'src/components/ContentContainer';
+import { Author } from 'src/components/Author';
+import { ButtonArrowLink } from 'src/components/ButtonArrow';
+import { TextContent } from 'src/components/TextContent';
+import { Timestamp } from 'src/components/Timestamp';
+import { Title } from 'src/components/Title';
 
 interface IFeedItemState {
   expanded: boolean;
@@ -23,7 +23,7 @@ export class GrabbingFeedItem extends React.Component<IGrabbing, IFeedItemState>
   }
 
   toggle() {
-    this.setState({ expanded: !this.state.expanded });
+    this.setState(prev => ({ expanded: !prev.expanded }));
   }
 
   render() {
@@ -58,7 +58,7 @@ export class GrabbingFeedItem extends React.Component<IGrabbing, IFeedItemState>
           text={
             this.props.comments && flattenComments(this.props.comments).length === 1
               ? '1 kommentti'
-              : `${flattenComments(this.props.comments as any).length} kommenttia`
+              : `${this.props.comments && flattenComments(this.props.comments).length} kommenttia`
           }
           to={`?page=grabbing&id=${this.props.ID}`}
           style={{ float: 'right' }}

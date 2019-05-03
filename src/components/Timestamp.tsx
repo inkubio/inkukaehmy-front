@@ -2,7 +2,7 @@ import * as React from 'react';
 
 interface ITimestampProps {
   children: string;
-};
+}
 
 export const Timestamp = (props: ITimestampProps) => {
   const parts = props.children.slice(0, -3).split(' ');
