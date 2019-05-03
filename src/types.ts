@@ -32,6 +32,7 @@ export type Filterable = 'all' | 'board' | 'official';
 export interface IAppState {
   currentUserID: number;
   grabbings: { [key: number]: IGrabbing };
+  oldGrabbings: IGrabbing[];
   refreshGrabbings: () => void;
   sortBy: Sortable;
   filterBy: Filterable;

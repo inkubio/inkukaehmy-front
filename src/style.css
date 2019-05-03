@@ -81,11 +81,11 @@
 
 .comment + .comment {
   padding-top: 2rem;
-  border-top: 1px solid #DDD;
+  border-top: 1px solid #ddd;
 }
 
 .subcomment {
-  border-left: 2px solid #DDD;
+  border-left: 2px solid #ddd;
   transition: background-color 5s ease;
   margin-top: 1rem;
   padding-left: 1rem;

@@ -15,6 +15,7 @@ import { GrabbingPage } from 'src/pages/GrabbingPage';
 import { MainPage } from 'src/pages/MainPage';
 
 import 'src/style.css';
+import { OldGrabbings } from 'src/pages/OldGrabbings';
 
 export const AppContext = React.createContext({});
 export const StoreProvider = AppContext.Provider;
@@ -35,6 +36,9 @@ const QueryRouter = (props: RouteComponentProps): JSX.Element => {
   if (page === 'grabbing') {
     return <GrabbingPage id={Number(params.get('id'))} />;
   }
+  if (page === 'old') {
+    return <OldGrabbings />;
+  }
   return <MainPage />;
 };
 
@@ -47,6 +51,7 @@ export default class App extends React.Component<{}, IAppState> {
       currentUserID: 0,
       filterBy: 'all',
       grabbings: {},
+      oldGrabbings: [],
       mainPageContent: '',
       mainPageTitle: '',
       grabbingBatch: '',
@@ -74,11 +79,17 @@ export default class App extends React.Component<{}, IAppState> {
   }
 
   async refreshGrabbings() {
+    // TODO: This is gonna be a bottleneck in a couple of years as it loads
+    // all the damn kähmys. Better solution would be to have API calls for a
+    // certain years grabs.
     const grabbings = await getGrabbings();
     const currentGrabbings = grabbings.filter(g => g.batch === this.state.grabbingBatch);
     this.setState({
       grabbings: arrayToObject(currentGrabbings.map(grab => ({ ...grab, comments: [] }))),
     });
+    const oldGrabbings = grabbings.filter(g => g.batch !== this.state.grabbingBatch);
+    this.setState({ oldGrabbings: oldGrabbings.map(g => ({ ...g, comments: [] })) });
+
     const filledGrabbings = currentGrabbings.map(async grab => ({
       ...grab,
       comments: await getGrabbingComments(grab.ID),
@@ -86,6 +97,11 @@ export default class App extends React.Component<{}, IAppState> {
     Promise.all(filledGrabbings).then(results =>
       this.setState({ grabbings: arrayToObject(results) }),
     );
+    const filledOldGrabbings = oldGrabbings.map(async grab => ({
+      ...grab,
+      comments: await getGrabbingComments(grab.ID),
+    }));
+    Promise.all(filledOldGrabbings).then(results => this.setState({ oldGrabbings: results }));
   }
 
   render() {
