@@ -4,12 +4,13 @@ import { TextArea } from 'src/components/TextArea';
 import { postGrabbing } from 'src/functions';
 import { AppContext } from 'src/App';
 import { IAppState } from 'src/types';
+import { RouteComponentProps } from 'react-router-dom';
 
-export const GrabbingForm: React.SFC<{}> = () => {
+export const GrabbingForm: React.SFC<RouteComponentProps> = ({ history }) => {
   const [title, setTitle] = useState('');
   const [isBoard, setBoard] = useState(false);
   const [text, setText] = useState('<p>Insert kähmy here!</p>');
-  const { grabbingBatch } = useContext(AppContext) as IAppState;
+  const { grabbingBatch, refreshGrabbings } = useContext(AppContext) as IAppState;
 
   const updateTitle = (event: React.FormEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -32,7 +33,9 @@ export const GrabbingForm: React.SFC<{}> = () => {
     const resp = await postGrabbing(data);
     console.log(resp);
     if (resp !== false) {
-      window.location = ('/kiltalaisille/hallinto/kahmyt/' as unknown) as Location;
+      // window.location = ('/kiltalaisille/hallinto/kahmyt/' as unknown) as Location;
+      refreshGrabbings();
+      history.push('/kiltalaisille/hallinto/kahmyt/');
     } else {
       alert('nyt kävi hassusti, laita TGssä viestiä @jonesus'); // eslint-disable-line
       console.log(resp);

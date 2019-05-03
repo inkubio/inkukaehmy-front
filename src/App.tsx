@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { BrowserRouter, Route, Switch, RouteProps } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, RouteComponentProps } from 'react-router-dom';
 import {
   arrayToObject,
   getCurrentUserId,
@@ -23,11 +23,11 @@ export const StoreConsumer = AppContext.Consumer;
 // Custom hack to enable routing to different pages via
 // only query params. Implementing proper sub-routing
 // in WordPress and Apache was harder than this one
-const QueryRouter = (props: RouteProps): JSX.Element => {
+const QueryRouter = (props: RouteComponentProps): JSX.Element => {
   const params = new URLSearchParams(props.location && props.location.search);
   const page = params.get('page');
   if (page === 'form') {
-    return <FormPage />;
+    return <FormPage {...props} />;
   }
   if (page === 'grabbings') {
     return <GrabbingPage {...props} />;
@@ -70,22 +70,22 @@ export default class App extends React.Component<{}, IAppState> {
       console.log(e);
     }
 
+    await this.refreshGrabbings();
+  }
+
+  async refreshGrabbings() {
     const grabbings = await getGrabbings();
+    const currentGrabbings = grabbings.filter(g => g.batch === this.state.grabbingBatch);
     this.setState({
-      grabbings: arrayToObject(grabbings.map(grab => ({ ...grab, comments: [] }))),
+      grabbings: arrayToObject(currentGrabbings.map(grab => ({ ...grab, comments: [] }))),
     });
-    const filledGrabbings = grabbings.map(async grab => ({
+    const filledGrabbings = currentGrabbings.map(async grab => ({
       ...grab,
       comments: await getGrabbingComments(grab.ID),
     }));
     Promise.all(filledGrabbings).then(results =>
       this.setState({ grabbings: arrayToObject(results) }),
     );
-  }
-
-  async refreshGrabbings() {
-    const grabbings = await getGrabbings();
-    this.setState({ grabbings: arrayToObject(grabbings) });
   }
 
   render() {

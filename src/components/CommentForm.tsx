@@ -19,7 +19,7 @@ export const CommentForm: React.SFC<ICommentFormProps> = ({
   reply,
 }) => {
   const [isVisible, setVisibility] = useState(false);
-  const [text, setText] = useState('<p>Insert kähmy here!</p>');
+  const [text, setText] = useState('<p>Insert kommentti here!</p>');
 
   const toggleVisible = () => setVisibility(!isVisible);
 
