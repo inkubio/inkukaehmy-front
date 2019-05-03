@@ -1,7 +1,7 @@
 import { IComment, IGrabbing } from './types';
 
-// const API_BASE = 'https://www.inkubio.fi';
-const API_BASE = 'http://localhost';
+const API_BASE = 'https://www.inkubio.fi';
+// const API_BASE = 'http://localhost';
 const API_URL = `${API_BASE}/wp-json/inku-kaehmy/v1`;
 const CONTENT_URL = `${API_BASE}/wp-json/wp/v2/pages/?slug=kähmyt`;
 
