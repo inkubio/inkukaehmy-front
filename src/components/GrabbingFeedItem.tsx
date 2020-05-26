@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { flattenComments } from 'src/functions';
 import { IGrabbing } from 'src/types';
 
 import { ContentContainer } from 'src/components/ContentContainer';
@@ -55,11 +54,7 @@ export class GrabbingFeedItem extends React.Component<IGrabbing, IFeedItemState>
         )}
 
         <ButtonArrowLink
-          text={
-            this.props.comments && flattenComments(this.props.comments).length === 1
-              ? '1 kommentti'
-              : `${this.props.comments && flattenComments(this.props.comments).length} kommenttia`
-          }
+          text="kommentit"
           to={`?page=grabbing&id=${this.props.ID}`}
           style={{ float: 'right' }}
         />

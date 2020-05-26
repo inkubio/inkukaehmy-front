@@ -1,12 +1,6 @@
 import * as React from 'react';
 import { BrowserRouter, Route, Switch, RouteComponentProps } from 'react-router-dom';
-import {
-  arrayToObject,
-  getCurrentUserId,
-  getGrabbingComments,
-  getGrabbings,
-  getPageTextContent,
-} from 'src/functions';
+import { arrayToObject, getCurrentUserId, getGrabbings, getPageTextContent } from 'src/functions';
 
 import { IAppState } from 'src/types';
 
@@ -89,19 +83,7 @@ export default class App extends React.Component<{}, IAppState> {
     });
     const oldGrabbings = grabbings.filter(g => g.batch !== this.state.grabbingBatch);
     this.setState({ oldGrabbings: oldGrabbings.map(g => ({ ...g, comments: [] })) });
-
-    const filledGrabbings = currentGrabbings.map(async grab => ({
-      ...grab,
-      comments: await getGrabbingComments(grab.ID),
-    }));
-    Promise.all(filledGrabbings).then(results =>
-      this.setState({ grabbings: arrayToObject(results) }),
-    );
-    const filledOldGrabbings = oldGrabbings.map(async grab => ({
-      ...grab,
-      comments: await getGrabbingComments(grab.ID),
-    }));
-    Promise.all(filledOldGrabbings).then(results => this.setState({ oldGrabbings: results }));
+    this.setState({ grabbings: arrayToObject(grabbings) });
   }
 
   render() {
