@@ -83,7 +83,6 @@ export default class App extends React.Component<{}, IAppState> {
     });
     const oldGrabbings = grabbings.filter(g => g.batch !== this.state.grabbingBatch);
     this.setState({ oldGrabbings: oldGrabbings.map(g => ({ ...g, comments: [] })) });
-    this.setState({ grabbings: arrayToObject(grabbings) });
   }
 
   render() {
